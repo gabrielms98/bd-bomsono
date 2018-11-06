@@ -8,6 +8,9 @@
 # install dependencies
 npm install
 
+# install sqlite3 module dependencies
+electron-builder install-app-deps
+
 # serve with hot reload at localhost:9080
 npm run dev
 
