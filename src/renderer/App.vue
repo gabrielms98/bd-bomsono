@@ -61,6 +61,7 @@
           label="Search"
           prepend-inner-icon="search"
         ></v-text-field>
+        <v-btn @click="checkIfLogged" class="grey--text"><v-icon>undo</v-icon></v-btn>
         <v-spacer></v-spacer>
       </v-toolbar>
       <v-content>
@@ -68,6 +69,7 @@
       </v-content>
     </v-app>
   </div>
+
   <div v-else-if="login">
     <v-app id="inspire">
     <v-content>
@@ -105,7 +107,6 @@
 </template>
 
 
-
 <script>
   export default {
     data: () => ({
@@ -128,8 +129,8 @@
     },
     methods: {
       checkIfLogged: function(){
-        this.logged = true;
-        this.login = false;
+        this.logged = !this.logged;
+        this.login = !this.login;
         console.log(this.login)
       }
     },
