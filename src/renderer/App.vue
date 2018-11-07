@@ -52,7 +52,7 @@
         </v-list>
       </v-navigation-drawer>
       <v-toolbar color="amber" app absolute clipped-left>
-        <v-toolbar-side-icon @click.native="drawer = !drawer"></v-toolbar-side-icon>
+        <v-toolbar-side-icon @click.native="drawer = !drawer"flat icon><v-icon>room_service</v-icon></v-toolbar-side-icon>
         <span class="title ml-3 mr-5">Hotel Bom&nbsp;<span class="font-weight-light">Sono</span></span>
         <v-text-field
           solo-inverted
@@ -61,7 +61,7 @@
           label="Search"
           prepend-inner-icon="search"
         ></v-text-field>
-        <v-btn @click="checkIfLogged" class="grey--text"><v-icon>undo</v-icon></v-btn>
+        <v-btn @click="checkIfLogged" flat icon><v-icon>undo</v-icon></v-btn>
         <v-spacer></v-spacer>
       </v-toolbar>
       <v-content>
@@ -107,6 +107,7 @@
 </template>
 
 
+
 <script>
   export default {
     data: () => ({
@@ -132,7 +133,8 @@
       checkIfLogged: function(){
         this.logged = !this.logged;
         this.login = !this.login;
-        console.log(this.login)
+        console.log(this.$session.id());
+        console.log(this.login);
       }
     },
     mounted: function(){
@@ -156,6 +158,7 @@
       db.close();
 
       console.log(this.logged);
+      this.$session.start();
     }
   }
 </script>
