@@ -24,7 +24,11 @@ const backend = {
 
       synced: false,
 
-
+      setCliente(){
+        
+      }
     }
   }
 }
+
+export default backend
