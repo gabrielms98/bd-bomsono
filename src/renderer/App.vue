@@ -115,11 +115,12 @@
         { icon: 'domain', text: 'Hotéis' },
         { icon: 'hotel', text: 'Apartamentos' },
         { divider: true },
-        { icon: 'restaurant', text: 'Restaurante' },
-        { icon: 'local-laundry-service', text: 'Serviços' },
+        { icon: 'account_circle', text: 'Clientes' },
+        { icon: 'attach_money', text: 'Contas' },
         { divider: true },
-        { icon: 'account', text: 'Clientes' },
-        { icon: 'chat_bubble', text: 'Trash' }
+        { icon: 'restaurant', text: 'Restaurante' },
+        { icon: 'local_laundry_service', text: 'Lavanderia' },
+        { icon: 'room_service', text: 'Serviços de quarto' }
       ],
       logged: false,
       login: true
