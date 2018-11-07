@@ -111,17 +111,14 @@
     data: () => ({
       drawer: null,
       items: [
-        { icon: 'lightbulb_outline', text: 'Notes' },
-        { icon: 'touch_app', text: 'Reminders' },
+        { icon: 'domain', text: 'Hotéis' },
+        { icon: 'hotel', text: 'Apartamentos' },
         { divider: true },
-        { icon: 'archive', text: 'Archive' },
-        { icon: 'delete', text: 'Trash' },
+        { icon: 'restaurant', text: 'Restaurante' },
+        { icon: 'local-laundry-service', text: 'Serviços' },
         { divider: true },
-        { icon: 'settings', text: 'Settings' },
-        { icon: 'chat_bubble', text: 'Trash' },
-        { icon: 'help', text: 'Help' },
-        { icon: 'phonelink', text: 'App downloads' },
-        { icon: 'keyboard', text: 'Keyboard shortcuts' }
+        { icon: 'account', text: 'Clientes' },
+        { icon: 'chat_bubble', text: 'Trash' }
       ],
       logged: false,
       login: true
