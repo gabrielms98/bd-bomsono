@@ -12,11 +12,9 @@ import store from './store'
 
 Vue.use(VueSession)
 Vue.use(Vuetify, {
-<<<<<<< HEAD
-    iconfont: 'mdi'
-=======
+
   iconfont: 'mdi'
->>>>>>> b4b9e44aa8dea9b41b2025d09bbcb9c284196dad
+
 })
 
 if (!process.env.IS_WEB) Vue.use(require('vue-electron'))
