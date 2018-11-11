@@ -11,11 +11,13 @@ module.exports = function(sequelize, DataTypes){
     Nacionalidade: DataTypes.STRING,
     Email: DataTypes.STRING,
     Telefone: DataTypes.INTEGER,
-    Senha: DataTypes.INTEGER
+    Senha: DataTypes.INTEGER,
+    adm: DataTypes.INTEGER,
+    usuario: DataTypes.STRING
   },
   {
     indexes: [{fields: ['id']}]
   });
-  
+
   return Cliente;
 }

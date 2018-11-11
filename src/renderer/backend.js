@@ -7,7 +7,7 @@ const fatal_error = err => {remote.dialog.showErrorBox('Não foi possível conec
 //global vars/objects
 var models;
 
-const sequelize = new Sequelize('sqlite:laborrural.db');
+const sequelize = new Sequelize('sqlite:bomsono.db');
 
 const sync = () => sequelize.sync();
 const loadmodels = () => {
@@ -24,8 +24,32 @@ const backend = {
 
       synced: false,
 
-      setCliente(){
-        
+      addCliente(clienteObj, callback=null){
+        Object.keys(clienteObj).forEach(function(key){
+          if(key=="usuario") return;
+        });
+
+        models.Cliente.create({
+          Nome: clienteObj.Nome,
+          Rua: clienteObj.Rua,
+          Num: clienteObj.Num,
+          Bairro: clienteObj.Bairro,
+          Cidade: clienteObj.Cidade,
+          Estado: clienteObj.Estado,
+          cep: clienteObj.cep,
+          Nacionalidade: clienteObj.Nacionalidade,
+          Email: clienteObj.Email,
+          Telefone: clienteObj.Telefone,
+          Senha: clienteObj.Senha,
+          adm: 0,
+          usuario: clienteObj.usuario
+        }).then(cliente_criado => callback(cliente_criado));
+      },
+
+      checkLogin(user, pwd, callback){
+        console.log("entrei");
+        models.Cliente.findOne({where: {usuario: user, Senha: pwd}})
+        .then(usuario => callback(usuario));
       }
     }
   }
