@@ -12,7 +12,7 @@
           dense
           class="grey lighten-4"
         >
-          <template v-for="(item, i) in items">
+          <template v-if="!adm" v-for="(item, i) in itemsCLIENTE">
             <v-layout
               v-if="item.heading"
               :key="i"
@@ -20,7 +20,7 @@
               align-center
             >
               <v-flex xs6>
-                <v-subheader v-if="item.heading">
+                <v-subheader v-if="item.heading ">
                   {{ item.heading }}
                 </v-subheader>
               </v-flex>
@@ -35,20 +35,62 @@
               class="my-3"
             ></v-divider>
             <v-list-tile
-              v-else
+              v-else-if="item.adm=true"
               :key="i"
-              @click=""
+              :to="item.to"
             >
               <v-list-tile-action>
                 <v-icon>{{ item.icon }}</v-icon>
               </v-list-tile-action>
-              <v-list-tile-content>
+              <v-list-tile-content >
                 <v-list-tile-title class="grey--text">
                   {{ item.text }}
                 </v-list-tile-title>
               </v-list-tile-content>
             </v-list-tile>
           </template>
+          <template v-if="adm" v-for="(item, i) in itemsADM">
+            <v-layout
+              v-if="item.heading"
+              :key="i"
+              row
+              align-center
+            >
+              <v-flex xs6>
+                <v-subheader v-if="item.heading ">
+                  {{ item.heading }}
+                </v-subheader>
+              </v-flex>
+              <v-flex xs6 class="text-xs-right">
+                <v-btn small flat>edit</v-btn>
+              </v-flex>
+            </v-layout>
+            <v-divider
+              v-else-if="item.divider"
+              :key="i"
+              dark
+              class="my-3"
+            ></v-divider>
+            <v-list-tile
+              v-else-if="item.adm=true"
+              :key="i"
+              :to="item.to"
+            >
+              <v-list-tile-action>
+                <v-icon>{{ item.icon }}</v-icon>
+              </v-list-tile-action>
+              <v-list-tile-content >
+                <v-list-tile-title class="grey--text">
+                  {{ item.text }}
+                </v-list-tile-title>
+              </v-list-tile-content>
+            </v-list-tile>
+          </template>
+          <v-divider></v-divider>
+          <br></br>
+          <v-flex xs8 class="text-xs-right">
+            <v-btn class="grey--text" @click="Logout">LOGOUT</v-btn>
+          </v-flex>
         </v-list>
       </v-navigation-drawer>
       <v-toolbar color="amber" app absolute clipped-left>
@@ -61,7 +103,8 @@
           label="Search"
           prepend-inner-icon="search"
         ></v-text-field>
-        <v-btn @click="checkIfLogged" flat icon><v-icon>undo</v-icon></v-btn>
+        <!--TIRAR ESSE BOTAO QUANDO TERMINAR O PROJETO-->
+        <v-btn @click="Logout" flat icon><v-icon>undo</v-icon></v-btn>
         <v-spacer></v-spacer>
       </v-toolbar>
       <v-content>
@@ -81,8 +124,9 @@
                 <v-toolbar-title>Login form</v-toolbar-title>
                 <v-spacer></v-spacer>
                 <v-tooltip bottom>
-                  <v-btn slot="activator" @click="checkIfLogged">
-                    <v-icon large>code</v-icon>
+                  <!--TIRAR ESSE BOTAO QUANDO TERMINAR O PROJETO-->
+                  <v-btn slot="activator" @click="Logout" flat>
+                    <v-icon icon>undo</v-icon>
                   </v-btn>
                   <span>Ir para menu inicial</span>
                 </v-tooltip>
@@ -184,16 +228,25 @@
   export default {
     data: () => ({
       drawer: null,
-      items: [
-        { icon: 'domain', text: 'Hotéis' },
-        { icon: 'hotel', text: 'Apartamentos' },
+      itemsADM: [
+        { icon: 'domain', text: 'Hotéis', to: '/', adm: false },
+        { icon: 'hotel', text: 'Apartamentos', to: '/Apartamentos', adm: this.adm },
         { divider: true },
-        { icon: 'account_circle', text: 'Clientes' },
-        { icon: 'attach_money', text: 'Contas' },
+        { icon: 'account_circle', text: 'Clientes', to: '', adm: this.adm },
+        { icon: 'attach_money', text: 'Contas', to: '', adm: false },
         { divider: true },
-        { icon: 'restaurant', text: 'Restaurante' },
-        { icon: 'local_laundry_service', text: 'Lavanderia' },
-        { icon: 'room_service', text: 'Serviços de quarto' }
+        { icon: 'restaurant', text: 'Restaurante', to: '', adm: false },
+        { icon: 'local_laundry_service', text: 'Lavanderia', to: '', adm: false },
+        { icon: 'room_service', text: 'Serviços de quarto', to: '', adm: false },
+      ],
+      itemsCLIENTE: [
+        { icon: 'domain', text: 'Hotéis', to: '/', adm: false },
+        { divider: true },
+        { icon: 'attach_money', text: 'Contas', to: '', adm: false },
+        { divider: true },
+        { icon: 'restaurant', text: 'Restaurante', to: '', adm: false },
+        { icon: 'local_laundry_service', text: 'Lavanderia', to: '', adm: false },
+        { icon: 'room_service', text: 'Serviços de quarto', to: '', adm: false },
       ],
       logged: false,
       login: true,
@@ -221,25 +274,31 @@
       cadastro_estado: '',
       cadastro_cep: '',
       cadastro_pais: '',
-      cadastro_telefone: ''
+      cadastro_telefone: '',
+      user_session_id: '',
+      adm: false,
+      sair: '/'
     }),
     props: {
       source: String
     },
     methods: {
-      checkIfLogged: function(){
+      Logout: function(){
         this.logged = !this.logged;
         this.login = !this.login;
-        console.log(this.$session.id());
-        console.log(this.login);
+        this.adm = false;
+        this.$session.destroy();
+        console.log("logout adm: "+this.adm);
       },
       Login: function(){
         let result = this.$backend.checkLogin(this.username, this.pwd, (usuario) => {
           if(usuario==null){console.log("usuario nao encontrado"); this.$router.push('/'); return;}
+          this.user_session_id = usuario.id;
           this.session = this.$session.start();
           this.login = !this.login;
           this.logged = !this.logged;
           this.cadastrar = false;
+          this.admCheck(usuario.id);
         });
       },
       register: function(){
@@ -261,6 +320,7 @@
           Senha: this.cadastro_senha,
           usuario: this.cadastro_user
         }, (created) => {
+          this.user_session_id = created.id;
           console.log(created.id);
         });
         this.cadastrar = false;
@@ -273,6 +333,13 @@
       home: function(){
         this.cadastrar = false;
         this.login = true;
+      },
+      admCheck: function(user_id){
+        this.$backend.admCheck(user_id, (cliente) => {
+          if(cliente==null){this.adm = false; return;}
+          console.log("é adm");
+          this.adm = true;
+        });
       }
     },
     mounted: function(){

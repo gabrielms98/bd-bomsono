@@ -47,9 +47,13 @@ const backend = {
       },
 
       checkLogin(user, pwd, callback){
-        console.log("entrei");
         models.Cliente.findOne({where: {usuario: user, Senha: pwd}})
         .then(usuario => callback(usuario));
+      },
+
+      admCheck(cid, callback){
+        models.Cliente.findOne({where: {id: cid, adm: 1}})
+        .then((cliente) => callback(cliente));
       }
     }
   }

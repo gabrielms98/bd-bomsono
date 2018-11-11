@@ -7,13 +7,13 @@ export default new Router({
   routes: [
     {
       path: '/',
-      name: 'welcome-view',
-      component: require('@/components/WelcomeView').default
+      name: 'Hoteis',
+      component: require('@/components/Hoteis.vue').default
     },
     {
-      path: '/inspire',
-      name: 'inspire',
-      component: require('@/components/InspireView').default
+      path: '/Apartamentos',
+      name: 'Apartamentos',
+      component: require('@/components/Apartamentos.vue').default
     },
     {
       path: '*',
