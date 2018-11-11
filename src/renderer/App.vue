@@ -115,6 +115,8 @@
               <v-card>
                 <v-toolbar dark color="amber">
                   <v-toolbar-title> Cadastro de usuário</v-toolbar-title>
+                  <v-spacer></v-spacer>
+                  <v-btn @click="home" flat icon><v-icon>undo</v-icon></v-btn>
                 </v-toolbar>
                 <v-spacer></v-spacer>
                 <v-card-text>
@@ -267,6 +269,10 @@
       },
       clear: function(){
         this.$refs.form.reset();
+      },
+      home: function(){
+        this.cadastrar = false;
+        this.login = true;
       }
     },
     mounted: function(){
