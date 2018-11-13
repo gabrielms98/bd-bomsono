@@ -86,7 +86,6 @@
               </v-list-tile-content>
             </v-list-tile>
           </template>
-          <v-divider></v-divider>
           <br></br>
           <v-flex xs8 class="text-xs-right">
             <v-btn class="grey--text" @click="Logout">LOGOUT</v-btn>
@@ -229,24 +228,26 @@
     data: () => ({
       drawer: null,
       itemsADM: [
-        { icon: 'domain', text: 'Hotéis', to: '/', adm: false },
-        { icon: 'hotel', text: 'Apartamentos', to: '/Apartamentos', adm: this.adm },
+        { icon: 'domain', text: 'Hotéis', to: '/' },
+        { icon: 'hotel', text: 'Apartamentos', to: '/Apartamentos'},
         { divider: true },
-        { icon: 'account_circle', text: 'Clientes', to: '', adm: this.adm },
-        { icon: 'attach_money', text: 'Contas', to: '', adm: false },
+        { icon: 'account_circle', text: 'Clientes', to: '' },
+        { icon: 'attach_money', text: 'Contas', to: '' },
         { divider: true },
-        { icon: 'restaurant', text: 'Restaurante', to: '', adm: false },
-        { icon: 'local_laundry_service', text: 'Lavanderia', to: '', adm: false },
-        { icon: 'room_service', text: 'Serviços de quarto', to: '', adm: false },
+        { icon: 'restaurant', text: 'Restaurante', to: ''},
+        { icon: 'local_laundry_service', text: 'Lavanderia', to: '' },
+        { icon: 'room_service', text: 'Serviços de quarto', to: '' },
+        { divider: true },
+        { icon: 'person_add', text: 'Cadastrar funcionario', to: ''}
       ],
       itemsCLIENTE: [
-        { icon: 'domain', text: 'Hotéis', to: '/', adm: false },
+        { icon: 'domain', text: 'Hotéis', to: '/' },
         { divider: true },
-        { icon: 'attach_money', text: 'Contas', to: '', adm: false },
+        { icon: 'attach_money', text: 'Contas', to: '' },
         { divider: true },
-        { icon: 'restaurant', text: 'Restaurante', to: '', adm: false },
-        { icon: 'local_laundry_service', text: 'Lavanderia', to: '', adm: false },
-        { icon: 'room_service', text: 'Serviços de quarto', to: '', adm: false },
+        { icon: 'restaurant', text: 'Restaurante', to: '' },
+        { icon: 'local_laundry_service', text: 'Lavanderia', to: '' },
+        { icon: 'room_service', text: 'Serviços de quarto', to: '' },
       ],
       logged: false,
       login: true,
