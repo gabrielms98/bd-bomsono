@@ -17,7 +17,7 @@ const sequelize = new Sequelize('bomsono', 'gabriel', 'bee3c4f5', {
     acquire: 3000,
     idle: 10000
   },
-  storage: 'testando.db'
+  storage: 'bomsono.sqlite'
 });
 
 const fatal_error = err => {remote.dialog.showErrorBox('Não foi possível conectar ao banco de dados!', err); remote.getCurrentWindow().close();}
@@ -31,21 +31,7 @@ const loadmodels = () => {
 
 sequelize.authenticate().then(loadmodels, err => fatal_error(err));
 
-// models.Cliente.create({
-//   Nome: 'Gabriel Martins Silva',
-//   Rua: 'Padre A',
-//   Num: '61',
-//   Bairro: 'Ramdela',
-//   Cidade: 'Viciosa',
-//   Estado: 'Minus',
-//   cep: '61616161',
-//   Nacionalidade: 'Full BR',
-//   Email: 'email@aleatorio.com',
-//   Telefone: '616161616',
-//   Senha: '12345',
-//   adm: 1,
-//   usuario: 'gabriel'
-// });
+
 sequelize.sync();
 
 //main object
@@ -72,7 +58,7 @@ const backend = {
           Email: clienteObj.Email,
           Telefone: clienteObj.Telefone,
           Senha: clienteObj.Senha,
-          adm: 0,
+          adm: clienteObj.adm,
           usuario: clienteObj.usuario
         }).then(cliente_criado => callback(cliente_criado));
       },

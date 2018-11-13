@@ -16,6 +16,11 @@ export default new Router({
       component: require('@/components/Apartamentos.vue').default
     },
     {
+      path: '/CadastroFuncionario',
+      name: 'CadastroFuncionario',
+      component: require('@/components/CadastroFuncionario.vue').default
+    },
+    {
       path: '*',
       redirect: '/'
     }

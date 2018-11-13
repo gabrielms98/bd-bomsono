@@ -224,139 +224,145 @@
 
 
 <script>
-  export default {
-    data: () => ({
-      drawer: null,
-      itemsADM: [
-        { icon: 'domain', text: 'Hotéis', to: '/' },
-        { icon: 'hotel', text: 'Apartamentos', to: '/Apartamentos'},
-        { divider: true },
-        { icon: 'account_circle', text: 'Clientes', to: '' },
-        { icon: 'attach_money', text: 'Contas', to: '' },
-        { divider: true },
-        { icon: 'restaurant', text: 'Restaurante', to: ''},
-        { icon: 'local_laundry_service', text: 'Lavanderia', to: '' },
-        { icon: 'room_service', text: 'Serviços de quarto', to: '' },
-        { divider: true },
-        { icon: 'person_add', text: 'Cadastrar funcionario', to: ''}
-      ],
-      itemsCLIENTE: [
-        { icon: 'domain', text: 'Hotéis', to: '/' },
-        { divider: true },
-        { icon: 'attach_money', text: 'Contas', to: '' },
-        { divider: true },
-        { icon: 'restaurant', text: 'Restaurante', to: '' },
-        { icon: 'local_laundry_service', text: 'Lavanderia', to: '' },
-        { icon: 'room_service', text: 'Serviços de quarto', to: '' },
-      ],
-      logged: false,
-      login: true,
-      username: '',
-      pwd: '',
-      session: '',
-      cadastrar: false,
-      valid: true,
-      nameRules: [
-        v => !!v || 'Name is required',
-        v => v.length <= 40 || 'Name must be less than 40 characters'
-      ],
-      emailRules: [
-        v => !!v || 'E-mail is required',
-        v => /.+@.+/.test(v) || 'E-mail must be valid'
-      ],
-      cadastro_user: '',
-      cadastro_senha: '',
-      cadastro_email: '',
-      cadastro_name: '',
-      cadastro_rua: '',
-      cadastro_num: '',
-      cadastro_bairro: '',
-      cadastro_cidade: '',
-      cadastro_estado: '',
-      cadastro_cep: '',
-      cadastro_pais: '',
-      cadastro_telefone: '',
-      user_session_id: '',
-      adm: false,
-      sair: '/'
-    }),
-    props: {
-      source: String
-    },
-    methods: {
-      Logout: function(){
-        this.logged = !this.logged;
-        this.login = !this.login;
-        this.adm = false;
-        this.$session.destroy();
-        this.session = this.$session.exists();
-        console.log("logout adm: "+this.adm);
-        console.log("session: "+this.session);
-      },
-      Login: function(){
-        let result = this.$backend.checkLogin(this.username, this.pwd, (usuario) => {
-          console.log("rola");
-          if(usuario==null){console.log("usuario nao encontrado"); this.$router.push('/'); return;}
-          this.user_session_id = usuario.id;
-          this.login = !this.login;
-          this.logged = !this.logged;
-          this.cadastrar = false;
-          this.$session.start();
-          this.session = this.$session.exists();
-          console.log("session: "+this.session);
-          this.admCheck(usuario.id);
-        });
-      },
-      register: function(){
-        console.log(this.$session.exists());
-        this.cadastrar = true;
-        this.session = this.$session.exists();
-        this.login = !this.login;
-      },
-      submit: function(){
-        this.$backend.addCliente({
-          Nome: this.cadastro_name,
-          Num: this.cadastro_num,
-          Rua: this.cadastro_rua,
-          Bairro: this.cadastro_bairro,
-          Cidade: this.cadastro_cidade,
-          Estado: this.cadastro_estado,
-          cep: this.cadastro_cep,
-          Nacionalidade: this.cadastro_pais,
-          Email: this.cadastro_email,
-          Telefone: this.cadastro_telefone,
-          Senha: this.cadastro_senha,
-          usuario: this.cadastro_user
-        }, (created) => {
-          this.user_session_id = created.id;
-          console.log(created.id);
-        });
-        this.cadastrar = false;
-        this.login = true;
-        this.clear();
-      },
-      clear: function(){
-        console.log("clear");
-        this.$refs.form.reset();
-      },
-      home: function(){
-        this.cadastrar = false;
-        this.login = true;
-      },
-      admCheck: function(user_id){
-        this.$backend.admCheck(user_id, (cliente) => {
-          if(cliente==null){this.adm = false; return;}
-          console.log("é adm");
-          this.adm = true;
-        });
-      }
-    },
-    mounted: function(){
-      this.$cookie.set('cookie_adm', this.adm , 1);
+import { remote } from 'electron'
+export default {
+  data: () => ({
+    drawer: null,
+    itemsADM: [
+      { icon: 'domain', text: 'Hotéis', to: '/' },
+      { icon: 'hotel', text: 'Apartamentos', to: '/Apartamentos'},
+      { divider: true },
+      { icon: 'account_circle', text: 'Clientes', to: '' },
+      { icon: 'attach_money', text: 'Contas', to: '' },
+      { divider: true },
+      { icon: 'restaurant', text: 'Restaurante', to: ''},
+      { icon: 'local_laundry_service', text: 'Lavanderia', to: '' },
+      { icon: 'room_service', text: 'Serviços de quarto', to: '' },
+      { divider: true },
+      { icon: 'person_add', text: 'Cadastrar funcionario', to: '/CadastroFuncionario'}
+    ],
+    itemsCLIENTE: [
+      { icon: 'domain', text: 'Hotéis', to: '/' },
+      { divider: true },
+      { icon: 'attach_money', text: 'Contas', to: '' },
+      { divider: true },
+      { icon: 'restaurant', text: 'Restaurante', to: '' },
+      { icon: 'local_laundry_service', text: 'Lavanderia', to: '' },
+      { icon: 'room_service', text: 'Serviços de quarto', to: '' },
+    ],
+    logged: false,
+    login: true,
+    username: '',
+    pwd: '',
+    session: '',
+    cadastrar: false,
+    valid: true,
+    nameRules: [
+      v => !!v || 'Name is required',
+      v => v.length <= 40 || 'Name must be less than 40 characters'
+    ],
+    emailRules: [
+      v => !!v || 'E-mail is required',
+      v => /.+@.+/.test(v) || 'E-mail must be valid'
+    ],
+    cadastro_user: '',
+    cadastro_senha: '',
+    cadastro_email: '',
+    cadastro_name: '',
+    cadastro_rua: '',
+    cadastro_num: '',
+    cadastro_bairro: '',
+    cadastro_cidade: '',
+    cadastro_estado: '',
+    cadastro_cep: '',
+    cadastro_pais: '',
+    cadastro_telefone: '',
+    user_session_id: '',
+    adm: false,
+    sair: '/'
+  }),
+  props: {
+    source: String
+  },
+  methods: {
+    Logout: function(){
+      this.logged = !this.logged;
+      this.login = !this.login;
+      this.adm = false;
+      this.$session.destroy();
       this.session = this.$session.exists();
-      this.adm = this.$cookie.get('cookie_adm')
+      this.$cookie.delete('cookie_user_session');
+      this.$cookie.delete('cookie_adm');
+      console.log("logout adm: "+this.adm);
+      console.log("session: "+this.session);
+    },
+    Login: function(){
+      let result = this.$backend.checkLogin(this.username, this.pwd, (usuario) => {
+        if(usuario==null){
+          remote.dialog.showMessageBox({type: 'warning', title: 'Falha ao fazer login!', message: 'Certifique que login e senha estão corretos!'});
+          return;
+        }
+        this.user_session_id = usuario.id;
+        this.login = !this.login;
+        this.logged = !this.logged;
+        this.cadastrar = false;
+        this.$session.start();
+        this.session = this.$session.exists();
+        this.admCheck(usuario.id);
+      });
+    },
+    register: function(){
+      console.log(this.$session.exists());
+      this.cadastrar = true;
+      this.session = this.$session.exists();
+      this.login = !this.login;
+    },
+    submit: function(){
+      this.$backend.addCliente({
+        Nome: this.cadastro_name,
+        Num: this.cadastro_num,
+        Rua: this.cadastro_rua,
+        Bairro: this.cadastro_bairro,
+        Cidade: this.cadastro_cidade,
+        Estado: this.cadastro_estado,
+        cep: this.cadastro_cep,
+        Nacionalidade: this.cadastro_pais,
+        Email: this.cadastro_email,
+        Telefone: this.cadastro_telefone,
+        Senha: this.cadastro_senha,
+        usuario: this.cadastro_user,
+        adm: 0
+      }, (created) => {
+        this.user_session_id = created.id;
+        console.log(created.id);
+      });
+      this.cadastrar = false;
+      this.login = true;
+      this.clear();
+    },
+    clear: function(){
+      this.$refs.form.reset();
+    },
+    home: function(){
+      this.cadastrar = false;
+      this.login = true;
+    },
+    admCheck: function(user_id){
+      this.$backend.admCheck(user_id, (cliente) => {
+        if(cliente==null){this.adm = false; return;}
+        this.adm = true;
+      });
     }
+  },
+  mounted: function(){
+    this.$cookie.set('cookie_adm', this.adm , 1);
+    this.$cookie.set('cookie_user_session', this.user_session_id, 1);
+    this.session = this.$session.exists();
+    this.adm = this.$cookie.get('cookie_adm')
+    this.user_session_id = this.$cookie.get('cookie_user_session');
+    console.log(this.$cookie.get('cookie_user_session'));
   }
+}
 </script>
 
 <style lang="stylus">
