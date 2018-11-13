@@ -1,9 +1,10 @@
 <template lang="html">
+  <v-container>
   <v-layout row wrap justify-center id="wrapper">
     <v-flex xs30 justify-center>
       <v-card>
         <v-toolbar dark color="amber">
-          <v-toolbar-title> Apartamentos</v-toolbar-title>
+          <v-toolbar-title><h3> Apartamentos</h3></v-toolbar-title>
           <v-spacer></v-spacer>
         </v-toolbar>
         <v-spacer></v-spacer>
@@ -41,6 +42,7 @@
       </v-card>
     </v-flex>
   </v-layout>
+</v-container>
 </template>
 
 <script>

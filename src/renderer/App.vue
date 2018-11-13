@@ -7,7 +7,7 @@
             <v-flex xs10 justify-center>
               <v-card>
                 <v-toolbar dark color="amber">
-                  <v-toolbar-title> Cadastro de usuário</v-toolbar-title>
+                  <v-toolbar-title> <h3>Cadastro de usuário</h3></v-toolbar-title>
                   <v-spacer></v-spacer>
                   <v-btn @click="home" flat icon><v-icon>undo</v-icon></v-btn>
                 </v-toolbar>
@@ -164,7 +164,7 @@
       </v-navigation-drawer>
       <v-toolbar color="amber" app absolute clipped-left>
         <v-toolbar-side-icon @click.native="drawer = !drawer"flat icon><v-icon>menu</v-icon></v-toolbar-side-icon>
-        <span class="title ml-3 mr-5">Hotel Bom&nbsp;<span class="font-weight-light">Sono</span></span>
+        <h3><span class="title ml-3 mr-5">Hotel Bom&nbsp;<span class="font-weight-light">Sono</span></span></h3>
         <v-text-field
           solo-inverted
           flat
@@ -190,7 +190,7 @@
           <v-flex xs12 sm8 md4>
             <v-card class="elevation-12">
               <v-toolbar dark color="amber">
-                <v-toolbar-title>Login</v-toolbar-title>
+                <v-toolbar-title><h3>Login</h3></v-toolbar-title>
                 <v-spacer></v-spacer>
                 <v-tooltip bottom>
                   <!--TIRAR ESSE BOTAO QUANDO TERMINAR O PROJETO-->

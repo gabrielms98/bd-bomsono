@@ -4,7 +4,7 @@
       <v-flex xs30 justify-center>
         <v-card>
           <v-toolbar dark color="amber">
-            <v-toolbar-title> Cadastro de usuário</v-toolbar-title>
+            <v-toolbar-title> <h3>Cadastro de funcionario</h3></v-toolbar-title>
             <v-spacer></v-spacer>
           </v-toolbar>
           <v-spacer></v-spacer>
