@@ -6,13 +6,18 @@ import 'material-design-icons-iconfont/dist/material-design-icons.css'
 import VueSession from 'vue-session'
 import backend from './backend'
 
+var VueCookie = require('vue-cookie');
+Vue.use(VueCookie);
+
 
 import App from './App'
 import router from './router'
 import store from './store'
 
 Vue.use(backend)
-Vue.use(VueSession)
+Vue.use(VueSession, {
+  persist: true
+})
 Vue.use(Vuetify, {
 
   iconfont: 'mdi'

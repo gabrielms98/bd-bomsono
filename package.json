@@ -55,10 +55,12 @@
   "dependencies": {
     "axios": "^0.16.1",
     "electron-rebuild": "^1.8.2",
+    "mysql2": "^1.6.4",
     "node-pre-gyp": "^0.11.0",
     "sequelize": "^4.41.1",
     "sqlite3": "^4.0.3",
     "vue": "^2.4.2",
+    "vue-cookie": "^1.1.4",
     "vue-electron": "^1.0.6",
     "vue-router": "^2.5.3",
     "vue-session": "^1.0.0",

@@ -1,5 +1,75 @@
 <template>
-  <div v-if=logged>
+  <div v-if="cadastrar">
+    <v-app id="inpire">
+      <v-content>
+        <v-container fluid fill-height>
+          <v-layout row wrap justify-center id="wrapper">
+            <v-flex xs10 justify-center>
+              <v-card>
+                <v-toolbar dark color="amber">
+                  <v-toolbar-title> Cadastro de usuário</v-toolbar-title>
+                  <v-spacer></v-spacer>
+                  <v-btn @click="home" flat icon><v-icon>undo</v-icon></v-btn>
+                </v-toolbar>
+                <v-spacer></v-spacer>
+                <v-card-text>
+                  <v-container grid-list-md>
+                    <v-form ref="form">
+                      <v-layout row wrap>
+                        <v-flex xs12 sm6>
+                          <v-text-field v-model="cadastro_user"   label="Usuario"  type="text"  required  ></v-text-field>
+                        </v-flex>
+                        <v-flex xs12 sm6>
+                          <v-text-field  v-model="cadastro_senha"    label="Senha"  type="password"  required  ></v-text-field>
+                        </v-flex>
+                        <v-flex xs12 sm6>
+                          <v-text-field  v-model="cadastro_email"  :rules="emailRules"  label="E-mail"  type="text"  required  ></v-text-field>
+                        </v-flex>
+                        <v-flex xs12 sm6>
+                          <v-text-field  v-model="cadastro_name"  :rules="nameRules"  :counter="40" label="Nome"  type="text"  required></v-text-field>
+                        </v-flex>
+                        <v-flex xs12 sm6>
+                          <v-text-field  v-model="cadastro_rua"    label="Rua"  type="text"  required  ></v-text-field>
+                        </v-flex>
+                        <v-flex xs12 sm6>
+                          <v-text-field  v-model="cadastro_num"    label="Numero"  type="text"  required  ></v-text-field>
+                        </v-flex>
+                        <v-flex xs12 sm6>
+                          <v-text-field  v-model="cadastro_bairro"    label="Bairro"  type="text"  required  ></v-text-field>
+                        </v-flex>
+                        <v-flex xs12 sm6>
+                          <v-text-field  v-model="cadastro_cidade"    label="Cidade"  type="text"  required  ></v-text-field>
+                        </v-flex>
+                        <v-flex xs12 sm6>
+                          <v-text-field  v-model="cadastro_estado"    label="Estado"  type="text"  required  ></v-text-field>
+                        </v-flex>
+                        <v-flex xs12 sm6>
+                          <v-text-field  v-model="cadastro_cep"    label="CEP"  type="number"  required  ></v-text-field>
+                        </v-flex>
+                        <v-flex xs12 sm6>
+                          <v-text-field  v-model="cadastro_pais"    label="Nacionalidade"  type="text"  required  ></v-text-field>
+                        </v-flex>
+                        <v-flex xs12 sm6>
+                          <v-text-field  v-model="cadastro_telefone"    label="Telefone"  type="number"  required  ></v-text-field>
+                        </v-flex>
+                      </v-layout>
+                    </v-form>
+                  </v-container>
+                </v-card-text>
+                <v-card-actions>
+                  <v-spacer></v-spacer><v-spacer></v-spacer>
+                  <v-btn :disabled="!valid" @click="submit">Cadastrar</v-btn>
+                  <v-btn @click="clear">clear</v-btn>
+                </v-card-actions>
+              </v-card>
+            </v-flex>
+          </v-layout>
+        </v-container>
+      </v-content>
+    </v-app>
+  </div>
+
+  <div v-else-if="this.session">
     <v-app id="keep">
       <v-navigation-drawer
         v-model="drawer"
@@ -103,7 +173,7 @@
           prepend-inner-icon="search"
         ></v-text-field>
         <!--TIRAR ESSE BOTAO QUANDO TERMINAR O PROJETO-->
-        <v-btn @click="Logout" flat icon><v-icon>undo</v-icon></v-btn>
+        <!-- <v-btn @click="Logout" flat icon><v-icon>undo</v-icon></v-btn> -->
         <v-spacer></v-spacer>
       </v-toolbar>
       <v-content>
@@ -112,7 +182,7 @@
     </v-app>
   </div>
 
-  <div v-else-if="login">
+  <div v-else-if="!this.session">
     <v-app id="inspire">
     <v-content>
       <v-container fluid fill-height>
@@ -120,13 +190,13 @@
           <v-flex xs12 sm8 md4>
             <v-card class="elevation-12">
               <v-toolbar dark color="amber">
-                <v-toolbar-title>Login form</v-toolbar-title>
+                <v-toolbar-title>Login</v-toolbar-title>
                 <v-spacer></v-spacer>
                 <v-tooltip bottom>
                   <!--TIRAR ESSE BOTAO QUANDO TERMINAR O PROJETO-->
-                  <v-btn slot="activator" @click="Logout" flat>
+                  <!-- <v-btn slot="activator" @click="Logout" flat>
                     <v-icon icon>undo</v-icon>
-                  </v-btn>
+                  </v-btn> -->
                   <span>Ir para menu inicial</span>
                 </v-tooltip>
               </v-toolbar>
@@ -147,76 +217,6 @@
       </v-container>
     </v-content>
   </v-app>
-  </div>
-
-  <div v-else-if="cadastrar">
-    <v-app id="inpire">
-      <v-content>
-        <v-container fluid fill-height>
-          <v-layout row wrap justify-center id="wrapper">
-            <v-flex xs10 justify-center>
-              <v-card>
-                <v-toolbar dark color="amber">
-                  <v-toolbar-title> Cadastro de usuário</v-toolbar-title>
-                  <v-spacer></v-spacer>
-                  <v-btn @click="home" flat icon><v-icon>undo</v-icon></v-btn>
-                </v-toolbar>
-                <v-spacer></v-spacer>
-                <v-card-text>
-                  <v-container grid-list-md>
-                    <v-form ref="form">
-                      <v-layout row wrap>
-                        <v-flex xs12 sm6>
-                          <v-text-field v-model="cadastro_user"   label="Usuario"  type="text"  required  ></v-text-field>
-                        </v-flex>
-                        <v-flex xs12 sm6>
-                          <v-text-field  v-model="cadastro_senha"    label="Senha"  type="password"  required  ></v-text-field>
-                        </v-flex>
-                        <v-flex xs12 sm6>
-                          <v-text-field  v-model="cadastro_email"  :rules="emailRules"  label="E-mail"  type="text"  required  ></v-text-field>
-                        </v-flex>
-                        <v-flex xs12 sm6>
-                          <v-text-field  v-model="cadastro_name"  :rules="nameRules"  :counter="40" label="Nome"  type="text"  required></v-text-field>
-                        </v-flex>
-                        <v-flex xs12 sm6>
-                          <v-text-field  v-model="cadastro_rua"    label="Rua"  type="text"  required  ></v-text-field>
-                        </v-flex>
-                        <v-flex xs12 sm6>
-                          <v-text-field  v-model="cadastro_num"    label="Numero"  type="text"  required  ></v-text-field>
-                        </v-flex>
-                        <v-flex xs12 sm6>
-                          <v-text-field  v-model="cadastro_bairro"    label="Bairro"  type="text"  required  ></v-text-field>
-                        </v-flex>
-                        <v-flex xs12 sm6>
-                          <v-text-field  v-model="cadastro_cidade"    label="Cidade"  type="text"  required  ></v-text-field>
-                        </v-flex>
-                        <v-flex xs12 sm6>
-                          <v-text-field  v-model="cadastro_estado"    label="Estado"  type="text"  required  ></v-text-field>
-                        </v-flex>
-                        <v-flex xs12 sm6>
-                          <v-text-field  v-model="cadastro_cep"    label="CEP"  type="number"  required  ></v-text-field>
-                        </v-flex>
-                        <v-flex xs12 sm6>
-                          <v-text-field  v-model="cadastro_pais"    label="Nacionalidade"  type="text"  required  ></v-text-field>
-                        </v-flex>
-                        <v-flex xs12 sm6>
-                          <v-text-field  v-model="cadastro_telefone"    label="Telefone"  type="number"  required  ></v-text-field>
-                        </v-flex>
-                      </v-layout>
-                    </v-form>
-                  </v-container>
-                </v-card-text>
-                <v-card-actions>
-                  <v-spacer></v-spacer><v-spacer></v-spacer>
-                  <v-btn :disabled="!valid" @click="submit">Cadastrar</v-btn>
-                  <v-btn @click="clear">clear</v-btn>
-                </v-card-actions>
-              </v-card>
-            </v-flex>
-          </v-layout>
-        </v-container>
-      </v-content>
-    </v-app>
   </div>
 
 </template>
@@ -257,12 +257,12 @@
       cadastrar: false,
       valid: true,
       nameRules: [
-       v => !!v || 'Name is required',
-       v => v.length <= 40 || 'Name must be less than 40 characters'
+        v => !!v || 'Name is required',
+        v => v.length <= 40 || 'Name must be less than 40 characters'
       ],
       emailRules: [
-       v => !!v || 'E-mail is required',
-       v => /.+@.+/.test(v) || 'E-mail must be valid'
+        v => !!v || 'E-mail is required',
+        v => /.+@.+/.test(v) || 'E-mail must be valid'
       ],
       cadastro_user: '',
       cadastro_senha: '',
@@ -289,21 +289,28 @@
         this.login = !this.login;
         this.adm = false;
         this.$session.destroy();
+        this.session = this.$session.exists();
         console.log("logout adm: "+this.adm);
+        console.log("session: "+this.session);
       },
       Login: function(){
         let result = this.$backend.checkLogin(this.username, this.pwd, (usuario) => {
+          console.log("rola");
           if(usuario==null){console.log("usuario nao encontrado"); this.$router.push('/'); return;}
           this.user_session_id = usuario.id;
-          this.session = this.$session.start();
           this.login = !this.login;
           this.logged = !this.logged;
           this.cadastrar = false;
+          this.$session.start();
+          this.session = this.$session.exists();
+          console.log("session: "+this.session);
           this.admCheck(usuario.id);
         });
       },
       register: function(){
+        console.log(this.$session.exists());
         this.cadastrar = true;
+        this.session = this.$session.exists();
         this.login = !this.login;
       },
       submit: function(){
@@ -326,9 +333,10 @@
         });
         this.cadastrar = false;
         this.login = true;
-        clear();
+        this.clear();
       },
       clear: function(){
+        console.log("clear");
         this.$refs.form.reset();
       },
       home: function(){
@@ -344,6 +352,9 @@
       }
     },
     mounted: function(){
+      this.$cookie.set('cookie_adm', this.adm , 1);
+      this.session = this.$session.exists();
+      this.adm = this.$cookie.get('cookie_adm')
     }
   }
 </script>

@@ -1,6 +1,5 @@
-module.exports = function(sequelize, DataTypes){
+module.exports = function(sequelize, Sequelize){
   var models = {}
-  models.Cliente = require('./Cliente')(sequelize, DataTypes);
-
+  models.Usuario = require('./Usuario')(sequelize, Sequelize);
   return models;
 }
