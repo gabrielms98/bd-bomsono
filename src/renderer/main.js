@@ -23,12 +23,17 @@ Vue.use(Vuetify)
 
 if (!process.env.IS_WEB) Vue.use(require('vue-electron'))
 Vue.http = Vue.prototype.$http = axios
-Vue.config.productionTip = false
+Vue.config.productionTip = false;
 
 /* eslint-disable no-new */
-new Vue({
-  components: { App },
-  router,
-  store,
-  template: '<App/>'
-}).$mount('#app')
+(function ignition(){
+  if(backend.install.synced){
+    new Vue({
+      components: { App },
+      router,
+      store,
+      template: '<App/>'
+    }).$mount('#app')
+  }
+  else setTimeout(ignition, 5);
+})();

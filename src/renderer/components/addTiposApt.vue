@@ -127,16 +127,16 @@ export default {
         value: "preco"
       },
       {
-        text: "Acessibilidade",
-        value: "access"
-      },
-      {
         text: "Camas de casal",
         value: "casal"
       },
       {
         text: "Camas de solteiro",
         value: "solteiro"
+      },
+      {
+        text: "Acessibilidade",
+        value: "access"
       },
       {
         text: "Televisão",
@@ -181,11 +181,12 @@ export default {
             casal: tipoObj.CamasCasal,
             solteiro: tipoObj.CamasSolteiro,
             access: tipoObj.Acessibilidade == 1? "SIM" : "NÃO",
-            tv: tipoObj.Televisao == 1? "SIM" : "NÃo",
+            tv: tipoObj.Televisao == 1? "SIM" : "NÃO",
             frigobar: tipoObj.Frigobar == 1? "SIM" : "NÃO"
           });
         });
       });
+      console.log(this.items);
     },
     abreLista(){
       this.listar = !this.listar;

@@ -26,11 +26,6 @@ export default new Router({
       component: require('@/components/addTiposApt.vue').default
     },
     {
-      path: '/listaTipos',
-      name: 'listaTipos',
-      component: require('@/components/listaTipos.vue').default
-    },
-    {
       path: '*',
       redirect: '/'
     }

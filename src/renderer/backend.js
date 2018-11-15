@@ -27,12 +27,11 @@ const sync = () => sequelize.sync();
 const loadmodels = () => {
   models = require('./models')(sequelize, Sequelize);
   sync();
+  backend.install.synced = true;
 };
 
 sequelize.authenticate().then(loadmodels, err => fatal_error(err));
 
-
-sequelize.sync();
 
 //main object
 const backend = {
@@ -85,9 +84,13 @@ const backend = {
       },
 
       getAllTipos(callback=null){
-        models.Tipos.findAll({where: {id: 1}})
+        models.Tipos.findAll()
         .then(tipo => callback(tipo));
-      }
+      },
+       getAllApt(callback=null){
+         models.Apartamentos.findAll()
+         .then(apt => callback(apt));
+       }
     }
   }
 }
