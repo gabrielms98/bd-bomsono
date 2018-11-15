@@ -319,7 +319,7 @@ export default {
       this.login = !this.login;
     },
     submit: function(){
-      this.$backend.addCliente({
+      this.$backend.addUsuario({
         Nome: this.cadastro_name,
         Num: this.cadastro_num,
         Rua: this.cadastro_rua,
@@ -349,8 +349,8 @@ export default {
       this.login = true;
     },
     admCheck: function(user_id){
-      this.$backend.admCheck(user_id, (cliente) => {
-        if(cliente==null){this.adm = false; return;}
+      this.$backend.admCheck(user_id, (usuario) => {
+        if(usuario==null){this.adm = false; return;}
         this.adm = true;
       });
     }

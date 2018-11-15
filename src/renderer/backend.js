@@ -17,10 +17,10 @@ const sequelize = new Sequelize('bomsono', 'gabriel', 'bee3c4f5', {
     acquire: 3000,
     idle: 10000
   },
-  storage: 'bomsono.sqlite'
+  storage: 'bomsono.db'
 });
 
-const fatal_error = err => {remote.dialog.showMessageBox({type: 'warning', title: 'Não foi possivel conectar com o banco de dados!', message: 'Verifique sua conexao!'}); remote.getCurrentWindow().close();}
+const fatal_error = err => {remote.dialog.showMessageBox({type: 'warning', title: 'Falha ao conectar com o banco de dados!', message: 'Se voce é o dono do aplicativo, verifique se o banco de dados esta online ou se os parametros de conecção do sequelize estão corretos'}); remote.getCurrentWindow().close();}
 
 
 const sync = () => sequelize.sync();
@@ -40,26 +40,26 @@ const backend = {
 
       synced: false,
 
-      addCliente(clienteObj, callback=null){
-        Object.keys(clienteObj).forEach(function(key){
+      addUsuario(usuarioObj, callback=null){
+        Object.keys(usuarioObj).forEach(function(key){
           if(key=="usuario") return;
         });
 
         models.Usuario.create({
-          Nome: clienteObj.Nome,
-          Rua: clienteObj.Rua,
-          Num: clienteObj.Num,
-          Bairro: clienteObj.Bairro,
-          Cidade: clienteObj.Cidade,
-          Estado: clienteObj.Estado,
-          cep: clienteObj.cep,
-          Nacionalidade: clienteObj.Nacionalidade,
-          Email: clienteObj.Email,
-          Telefone: clienteObj.Telefone,
-          Senha: clienteObj.Senha,
-          adm: clienteObj.adm,
-          usuario: clienteObj.usuario
-        }).then(cliente_criado => callback(cliente_criado));
+          Nome: usuarioObj.Nome,
+          Rua: usuarioObj.Rua,
+          Num: usuarioObj.Num,
+          Bairro: usuarioObj.Bairro,
+          Cidade: usuarioObj.Cidade,
+          Estado: usuarioObj.Estado,
+          cep: usuarioObj.cep,
+          Nacionalidade: usuarioObj.Nacionalidade,
+          Email: usuarioObj.Email,
+          Telefone: usuarioObj.Telefone,
+          Senha: usuarioObj.Senha,
+          adm: usuarioObj.adm,
+          usuario: usuarioObj.usuario
+        }).then(usuario_criado => callback(usuario_criado));
       },
 
       checkLogin(user, pwd, callback){
