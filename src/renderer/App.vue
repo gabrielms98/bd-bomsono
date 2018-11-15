@@ -1,9 +1,9 @@
 <template>
-  <div v-if="cadastrar">
+  <div v-if="cadastrar" >
     <v-app id="inpire">
       <v-content>
-        <v-container fluid fill-height>
-          <v-layout row wrap justify-center id="wrapper">
+        <v-container fluid fill-height class="back">
+          <v-layout row wrap justify-center>
             <v-flex xs10 justify-center>
               <v-card>
                 <v-toolbar dark color="amber">
@@ -69,7 +69,7 @@
     </v-app>
   </div>
 
-  <div v-else-if="this.session">
+  <div v-else-if="this.session" class="back">
     <v-app id="keep">
       <v-navigation-drawer
         v-model="drawer"
@@ -182,7 +182,7 @@
     </v-app>
   </div>
 
-  <div v-else-if="!this.session">
+  <div v-else-if="!this.session" class="back">
     <v-app id="inspire">
     <v-content>
       <v-container fluid fill-height>
@@ -366,8 +366,15 @@ export default {
 }
 </script>
 
-<style lang="stylus">
-  #keep
-    .v-navigation-drawer__border
-      display: none
+<style >
+  .back {
+    background-image: url(./assets/hotelbackground.jpg);
+    background-size: cover;
+  }
+  #inspire {
+    background: none;
+  }
+  #keep {
+    background: none;
+  }
 </style>
