@@ -16,14 +16,13 @@
           <v-spacer></v-spacer><v-spacer></v-spacer>
           <!--EXEMPLO DE COMO VAI SER O CARD DE CADA AP-->
             <v-flex xs12 sm2 v-for="item in items" >
-             <v-card :color="item.cor" class="white--text">
-               <v-card-title primary-title>
-                 <div class="headline">&nbspAP&nbsp</div>
-                 <div><h1>{{item.num}}</h1></div>
-               </v-card-title>
-               <v-card-actions>
-                 <v-btn flat dark router >SELECIONAR</v-btn>
-               </v-card-actions>
+             <v-card :color="item.cor" class="white--text" height="100" width="130">
+               <v-btn flat>
+                 <v-card-title primary-title>
+                   <h4>&nbsp&nbsp&nbsp&nbsp&nbspAP</h4>
+                   <div><h1>{{item.num}}</h1></div>
+                 </v-card-title>
+              </v-btn>
              </v-card>
            </v-flex>
         </v-card-actions>
@@ -43,8 +42,6 @@ export default {
       this.items = [];
       this.$backend.getAllApt(all_apt => {
         all_apt.forEach(aptObj => {
-          console.log(aptObj.id);
-          console.log(aptObj.NumeroAp);
           this.items.push({
             num: aptObj.NumeroAp,
             ocupado: aptObj.Ocupado,
@@ -52,7 +49,6 @@ export default {
           });
         });
       });
-      console.log(this.items);
     }
   },
   mounted: function(){
