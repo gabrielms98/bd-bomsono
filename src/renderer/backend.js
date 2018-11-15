@@ -20,7 +20,7 @@ const sequelize = new Sequelize('bomsono', 'gabriel', 'bee3c4f5', {
   storage: 'bomsono.sqlite'
 });
 
-const fatal_error = err => {remote.dialog.showErrorBox('Não foi possível conectar ao banco de dados!', err); remote.getCurrentWindow().close();}
+const fatal_error = err => {remote.dialog.showMessageBox({type: 'warning', title: 'Não foi possivel conectar com o banco de dados!', message: 'Verifique sua conexao!'}); remote.getCurrentWindow().close();}
 
 
 const sync = () => sequelize.sync();
@@ -71,6 +71,22 @@ const backend = {
       admCheck(cid, callback){
         models.Usuario.findOne({where: {id: cid, adm: 1}})
         .then((cliente) => callback(cliente));
+      },
+
+      addTipo(tipoObj, callback=null){
+        models.Tipos.create({
+          PrecoDiaria: tipoObj.PrecoDiaria,
+          Acessibilidade: tipoObj.Acessibilidade,
+          CamasCasal: tipoObj.CamasCasal,
+          CamasSolteiro: tipoObj.CamasSolteiro,
+          Televisao: tipoObj.Televisao,
+          Frigobar: tipoObj.Frigobar
+        }).then(tipo => callback(tipo));
+      },
+
+      getAllTipos(callback=null){
+        models.Tipos.findAll({where: {id: 1}})
+        .then(tipo => callback(tipo));
       }
     }
   }

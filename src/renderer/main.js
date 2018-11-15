@@ -5,6 +5,7 @@ import 'vuetify/dist/vuetify.css'
 import 'material-design-icons-iconfont/dist/material-design-icons.css'
 import VueSession from 'vue-session'
 import backend from './backend'
+import 'vuetify/dist/vuetify.min.css'
 
 var VueCookie = require('vue-cookie');
 Vue.use(VueCookie);
@@ -18,11 +19,7 @@ Vue.use(backend)
 Vue.use(VueSession, {
   persist: true
 })
-Vue.use(Vuetify, {
-
-  iconfont: 'mdi'
-
-})
+Vue.use(Vuetify)
 
 if (!process.env.IS_WEB) Vue.use(require('vue-electron'))
 Vue.http = Vue.prototype.$http = axios

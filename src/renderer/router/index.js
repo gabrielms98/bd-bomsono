@@ -21,6 +21,16 @@ export default new Router({
       component: require('@/components/CadastroFuncionario.vue').default
     },
     {
+      path: '/addTiposApt',
+      name: 'addTiposApt',
+      component: require('@/components/addTiposApt.vue').default
+    },
+    {
+      path: '/listaTipos',
+      name: 'listaTipos',
+      component: require('@/components/listaTipos.vue').default
+    },
+    {
       path: '*',
       redirect: '/'
     }

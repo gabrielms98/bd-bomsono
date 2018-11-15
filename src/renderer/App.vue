@@ -239,7 +239,8 @@ export default {
       { icon: 'local_laundry_service', text: 'Lavanderia', to: '' },
       { icon: 'room_service', text: 'Serviços de quarto', to: '' },
       { divider: true },
-      { icon: 'person_add', text: 'Cadastrar funcionario', to: '/CadastroFuncionario'}
+      { icon: 'person_add', text: 'Cadastrar funcionario', to: '/CadastroFuncionario'},
+      { icon: 'add', text: 'Tipo de Apartamento', to: '/addTiposApt'}
     ],
     itemsCLIENTE: [
       { icon: 'domain', text: 'Hotéis', to: '/' },
