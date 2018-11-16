@@ -166,13 +166,6 @@
               <v-toolbar dark color="amber">
                 <v-toolbar-title><h3>Login</h3></v-toolbar-title>
                 <v-spacer></v-spacer>
-                <v-tooltip bottom>
-                  <!--TIRAR ESSE BOTAO QUANDO TERMINAR O PROJETO-->
-                  <!-- <v-btn slot="activator" @click="Logout" flat>
-                    <v-icon icon>undo</v-icon>
-                  </v-btn> -->
-                  <span>Ir para menu inicial</span>
-                </v-tooltip>
               </v-toolbar>
               <v-card-text>
                 <v-form>

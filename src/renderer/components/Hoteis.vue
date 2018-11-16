@@ -5,7 +5,12 @@
         <v-flex xs30>
           <v-card>
             <v-toolbar dark color="amber">
-              <v-toolbar-title> <h3>Lista da hoteis da franquia</h3></v-toolbar-title>
+              <v-flex xs30 sm25>
+                <v-toolbar-title> <h3>Lista de hoteis da franquia &nbsp</h3></v-toolbar-title>
+              </v-flex>
+              <v-flex xs30 sm5 class="text-xs-right">
+                <v-text-field solo-inverted flat hide-details label="Search" prepend-inner-icon="search"></v-text-field>
+              </v-flex>
               <v-spacer></v-spacer>
             </v-toolbar>
             <v-spacer></v-spacer>
