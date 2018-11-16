@@ -87,10 +87,16 @@ const backend = {
         models.Tipos.findAll()
         .then(tipo => callback(tipo));
       },
-       getAllApt(callback=null){
-         models.Apartamentos.findAll()
-         .then(apt => callback(apt));
-       }
+
+      getAllApt(callback=null){
+        models.Apartamentos.findAll()
+       .then(apt => callback(apt));
+      },
+
+      getAllHoteis(callback=null){
+        models.Hotel.findAll()
+        .then(hotel => callback(hotel));
+      }
     }
   }
 }

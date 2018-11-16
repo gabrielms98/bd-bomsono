@@ -6,6 +6,7 @@ module.exports = function(sequelize, Sequelize){
   models.Apartamentos = require('./Apartamentos')(sequelize, Sequelize);
   models.Reserva = require('./Reserva')(sequelize, Sequelize);
   models.Estadia = require('./Estadia')(sequelize, Sequelize);
-  
+  models.Hotel = require('./Hotel')(sequelize, Sequelize);
+
   return models;
 }
