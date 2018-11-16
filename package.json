@@ -55,6 +55,7 @@
   "dependencies": {
     "axios": "^0.16.1",
     "electron-rebuild": "^1.8.2",
+    "js-cookie": "^2.2.0",
     "mysql2": "^1.6.4",
     "node-pre-gyp": "^0.11.0",
     "sequelize": "^4.41.1",

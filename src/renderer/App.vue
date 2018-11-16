@@ -82,13 +82,9 @@
           dense
           class="grey lighten-4"
         >
-          <template v-if="!adm" v-for="(item, i) in itemsCLIENTE">
-            <v-layout
-              v-if="item.heading"
-              :key="i"
-              row
-              align-center
-            >
+        <div v-if="this.adm===true">
+          <template v-for="(item, i) in itemsADM">
+            <v-layout v-if="item.heading" :key="i" row align-center>
               <v-flex xs6>
                 <v-subheader v-if="item.heading ">
                   {{ item.heading }}
@@ -98,17 +94,8 @@
                 <v-btn small flat>edit</v-btn>
               </v-flex>
             </v-layout>
-            <v-divider
-              v-else-if="item.divider"
-              :key="i"
-              dark
-              class="my-3"
-            ></v-divider>
-            <v-list-tile
-              v-else-if="item.adm=true"
-              :key="i"
-              :to="item.to"
-            >
+            <v-divider v-else-if="item.divider" :key="i" dark class="my-3"></v-divider>
+            <v-list-tile v-else-if="item.adm=true" :key="i" :to="item.to">
               <v-list-tile-action>
                 <v-icon>{{ item.icon }}</v-icon>
               </v-list-tile-action>
@@ -119,13 +106,10 @@
               </v-list-tile-content>
             </v-list-tile>
           </template>
-          <template v-if="adm" v-for="(item, i) in itemsADM">
-            <v-layout
-              v-if="item.heading"
-              :key="i"
-              row
-              align-center
-            >
+        </div>
+        <div v-else-if="this.adm===false">
+          <template v-for="(item, i) in itemsCLIENTE">
+            <v-layout v-if="item.heading" :key="i" row align-center>
               <v-flex xs6>
                 <v-subheader v-if="item.heading ">
                   {{ item.heading }}
@@ -135,17 +119,8 @@
                 <v-btn small flat>edit</v-btn>
               </v-flex>
             </v-layout>
-            <v-divider
-              v-else-if="item.divider"
-              :key="i"
-              dark
-              class="my-3"
-            ></v-divider>
-            <v-list-tile
-              v-else-if="item.adm=true"
-              :key="i"
-              :to="item.to"
-            >
+            <v-divider v-else-if="item.divider" :key="i" dark class="my-3"></v-divider>
+            <v-list-tile v-else-if="item.adm=true" :key="i" :to="item.to">
               <v-list-tile-action>
                 <v-icon>{{ item.icon }}</v-icon>
               </v-list-tile-action>
@@ -156,6 +131,7 @@
               </v-list-tile-content>
             </v-list-tile>
           </template>
+        </div>
           <br></br>
           <v-flex xs8 class="text-xs-right">
             <v-btn class="grey--text" @click="Logout">LOGOUT</v-btn>
@@ -172,8 +148,6 @@
           label="Search"
           prepend-inner-icon="search"
         ></v-text-field>
-        <!--TIRAR ESSE BOTAO QUANDO TERMINAR O PROJETO-->
-        <!-- <v-btn @click="Logout" flat icon><v-icon>undo</v-icon></v-btn> -->
         <v-spacer></v-spacer>
       </v-toolbar>
       <v-content>
@@ -225,6 +199,8 @@
 
 <script>
 import { remote } from 'electron'
+import * as Cookies from 'js-cookie'
+
 export default {
   data: () => ({
     drawer: null,
@@ -280,6 +256,7 @@ export default {
     cadastro_telefone: '',
     user_session_id: '',
     adm: false,
+    comum: false,
     sair: '/'
   }),
   props: {
@@ -293,9 +270,6 @@ export default {
       this.$session.destroy();
       this.session = this.$session.exists();
       this.$cookie.delete('cookie_user_session');
-      this.$cookie.delete('cookie_adm');
-      console.log("logout adm: "+this.adm);
-      console.log("session: "+this.session);
     },
     Login: function(){
       let result = this.$backend.checkLogin(this.username, this.pwd, (usuario) => {
@@ -308,6 +282,8 @@ export default {
         this.logged = !this.logged;
         this.cadastrar = false;
         this.$session.start();
+        this.$session.set('user_session',usuario.adm);
+        this.$cookie.set('cookie_user_session', usuario.id, 1);
         this.session = this.$session.exists();
         this.admCheck(usuario.id);
       });
@@ -334,7 +310,6 @@ export default {
         usuario: this.cadastro_user,
         adm: 0
       }, (created) => {
-        this.user_session_id = created.id;
         console.log(created.id);
       });
       this.cadastrar = false;
@@ -352,16 +327,13 @@ export default {
       this.$backend.admCheck(user_id, (usuario) => {
         if(usuario==null){this.adm = false; return;}
         this.adm = true;
+        console.log('adm: '+this.adm);
       });
     }
   },
   mounted: function(){
-    this.$cookie.set('cookie_adm', this.adm , 1);
-    this.$cookie.set('cookie_user_session', this.user_session_id, 1);
     this.session = this.$session.exists();
-    this.adm = this.$cookie.get('cookie_adm')
-    this.user_session_id = this.$cookie.get('cookie_user_session');
-    console.log(this.$cookie.get('cookie_user_session'));
+    (this.$session.get('user_session')==1)? this.adm=true : this.adm=false;
   }
 }
 </script>

@@ -13,10 +13,11 @@ module.exports = function(sequelize, Sequelize){
     Telefone: Sequelize.INTEGER,
     Senha: Sequelize.INTEGER,
     adm: Sequelize.INTEGER,
-    usuario: Sequelize.STRING
+    usuario: Sequelize.STRING,
+    EstadiaID: Sequelize.INTEGER,
   },
   {
-    indexes: [{fields: ['id']}]
+    indexes: [{fields: ['id','EstadiaID']}]
   });
 
   return Usuario;
