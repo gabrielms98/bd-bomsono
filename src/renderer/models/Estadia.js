@@ -5,7 +5,8 @@ module.exports = function(sequelize, Sequelize){
     Checkout: Sequelize.DATE,
     ValorTotal: Sequelize.INTEGER,
     ReservaID: Sequelize.INTEGER,
-    ApartamentosID: Sequelize.INTEGER
+    ApartamentosID: Sequelize.INTEGER,
+    ClienteID: Sequelize.INTEGER
   },
   {
     indexes: [{fields: ['id']}]

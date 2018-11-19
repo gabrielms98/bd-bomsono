@@ -96,6 +96,26 @@ const backend = {
       getAllHoteis(callback=null){
         models.Hotel.findAll()
         .then(hotel => callback(hotel));
+      },
+
+      getEstadia(eid, callback=null){
+        models.Estadia.findOne({where: {id: eid}})
+        .then(estadia => callback(estadia));
+      },
+
+      getAp(aid, callback=null){
+        models.Apartamentos.findOne({where: {id: aid}})
+        .then(ap => callback(ap));
+      },
+
+      getAllClientesHosp(callback=null){
+        models.Estadia.findAll()
+        .then(all_estadias => callback(all_estadias));
+      },
+
+      getUsuario(uid, callback=null){
+        models.Usuario.findOne({where: {id: uid}})
+        .then(usuario => callback(usuario));
       }
     }
   }

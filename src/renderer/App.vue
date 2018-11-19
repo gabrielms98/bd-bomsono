@@ -141,13 +141,6 @@
       <v-toolbar color="amber" app absolute clipped-left>
         <v-toolbar-side-icon @click.native="drawer = !drawer"flat icon><v-icon>menu</v-icon></v-toolbar-side-icon>
         <h3><span class="title ml-3 mr-5">Hotel Bom&nbsp;<span class="font-weight-light">Sono</span></span></h3>
-        <v-text-field
-          solo-inverted
-          flat
-          hide-details
-          label="Search"
-          prepend-inner-icon="search"
-        ></v-text-field>
         <v-spacer></v-spacer>
       </v-toolbar>
       <v-content>
@@ -198,7 +191,7 @@ export default {
   data: () => ({
     drawer: null,
     itemsADM: [
-      { icon: 'domain', text: 'Hotéis', to: '/' },
+      { icon: 'domain', text: 'Hotéis', to: '/HoteisAdm' },
       { icon: 'hotel', text: 'Apartamentos', to: '/Apartamentos'},
       { divider: true },
       { icon: 'account_circle', text: 'Clientes', to: '' },
@@ -212,11 +205,10 @@ export default {
       { icon: 'add', text: 'Tipo de Apartamento', to: '/addTiposApt'}
     ],
     itemsCLIENTE: [
-      { icon: 'domain', text: 'Hotéis', to: '/' },
+      { icon: 'domain', text: 'Hotéis', to: '/HoteisCliente' },
       { divider: true },
-      { icon: 'attach_money', text: 'Contas', to: '' },
+      { icon: 'attach_money', text: 'Conta', to: '' },
       { divider: true },
-      { icon: 'restaurant', text: 'Restaurante', to: '' },
       { icon: 'local_laundry_service', text: 'Lavanderia', to: '' },
       { icon: 'room_service', text: 'Serviços de quarto', to: '' },
     ],
@@ -279,6 +271,7 @@ export default {
         this.$cookie.set('cookie_user_session', usuario.id, 1);
         this.session = this.$session.exists();
         this.admCheck(usuario.id);
+        this.$router.push("/");
       });
     },
     register: function(){
