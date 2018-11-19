@@ -20,7 +20,7 @@ const sequelize = new Sequelize('bomsono', 'gabriel', 'bee3c4f5', {
   storage: 'bomsono.db'
 });
 
-const fatal_error = err => {remote.dialog.showMessageBox({type: 'warning', title: 'Falha ao conectar com o banco de dados!', message: 'Se voce é o dono do aplicativo, verifique se o banco de dados esta online ou se os parametros de conecção do sequelize estão corretos'}); remote.getCurrentWindow().close();}
+const fatal_error = err => {remote.dialog.showMessageBox({type: 'warning', title: 'Falha ao conectar com o banco de dados!', message: 'Se voce é o dono do aplicativo, verifique se o banco de dados esta online ou se os parametros de conexão do sequelize estão corretos'}); remote.getCurrentWindow().close();}
 
 
 const sync = () => sequelize.sync();
