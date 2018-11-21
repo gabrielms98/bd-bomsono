@@ -92,7 +92,7 @@ export default {
   methods: {
     allClientesHosp(){
       this.items = [];
-      this.$backend.getAllClientesHosp(all_estadias => {
+      this.$backend.getAllClientesHosp(this.id, all_estadias => {
         all_estadias.forEach(estadiaObj => {
           console.log("clienteID: "+estadiaObj.ClienteID);
           this.$backend.getUsuario(estadiaObj.ClienteID, cliente => {

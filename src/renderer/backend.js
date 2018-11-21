@@ -108,8 +108,8 @@ const backend = {
         .then(ap => callback(ap));
       },
 
-      getAllClientesHosp(callback=null){
-        models.Estadia.findAll()
+      getAllClientesHosp(eid, callback=null){
+        models.Estadia.findAll({where: {id: eid}})
         .then(all_estadias => callback(all_estadias));
       },
 
