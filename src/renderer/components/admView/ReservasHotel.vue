@@ -9,7 +9,8 @@
                 <v-toolbar-title> <h3>Lista de Estadias</h3></v-toolbar-title>
               </v-flex>
               <v-flex>
-                  <v-btn flat to="./HoteisAdm"><v-icon>undo</v-icon></v-btn>
+                <v-spacer></v-spacer><v-spacer></v-spacer>
+                <v-btn flat to="./HoteisAdm"><v-icon>undo</v-icon></v-btn>
               </v-flex>
               <v-spacer></v-spacer>
             </v-toolbar>

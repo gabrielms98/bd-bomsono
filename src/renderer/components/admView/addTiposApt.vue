@@ -50,7 +50,7 @@
           <v-card>
             <v-toolbar dark color="amber">
               <v-toolbar-title> <h3>Listar todos os tipos</h3></v-toolbar-title>
-              <v-btn icon @click="abreLista"><v-icon flat >list</v-icon></v-btn>
+              <v-btn icon @click="abreLista" flat><v-icon>list</v-icon></v-btn>
               <v-spacer></v-spacer>
             </v-toolbar>
             <v-spacer></v-spacer>

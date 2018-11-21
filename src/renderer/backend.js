@@ -88,9 +88,9 @@ const backend = {
         .then(tipo => callback(tipo));
       },
 
-      getAllApt(callback=null){
-        models.Apartamentos.findAll()
-       .then(apt => callback(apt));
+      getAllApt(hid, callback=null){
+        models.Apartamentos.findAll({where: {HotelID: hid}})
+       .then(all_apt => callback(all_apt));
       },
 
       getAllHoteis(callback=null){
@@ -116,6 +116,26 @@ const backend = {
       getUsuario(uid, callback=null){
         models.Usuario.findOne({where: {id: uid}})
         .then(usuario => callback(usuario));
+      },
+
+      getHotel(nome_hotel, callback=null){
+        models.Hotel.findOne({where: {Nome: nome_hotel}})
+        .then(hotel => callback(hotel));
+      },
+
+      getTipo(casal, solteiro, tv, access, frig, callback=null){
+        models.Tipos.findOne({where: {CamasCasal: casal, CamasSolteiro: solteiro, Televisao: tv, Frigobar: frig, Acessibilidade: access}})
+        .then(tipo => callback(tipo));
+      },
+
+      addAp(apObj, callback=null){
+        models.Apartamentos.create({
+          NumeroAp: apObj.NumeroAp,
+          Ocupado: apObj.Ocupado,
+          idTipos: apObj.idTipos,
+          EstadiaID: apObj.EstadiaID,
+          HotelID: apObj.HotelID
+        }).then(ap => callback(ap));
       }
     }
   }
