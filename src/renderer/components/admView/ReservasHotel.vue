@@ -32,6 +32,7 @@
                     <td>{{props.item.checkin}}</td>
                     <td>{{props.item.checkout}}</td>
                     <td>{{props.item.quarto}}</td>
+                    <td><v-btn small color="amber"><v-icon>info</v-icon>CONTA</v-btn></td>
                   </tr>
                 </template>
                 <template slot="pageText" slot-scope="item">
@@ -79,7 +80,12 @@ export default {
       {
         text: "Quarto",
         value: "quarto"
+      },
+      {
+        text: " ",
+        value: "actions"
       }
+
     ],
     items: [],
     cliente_nome: '',
@@ -105,7 +111,8 @@ export default {
                 nome_cliente: this.cliente_nome,
                 checkin: estadiaObj.Checkin,
                 checkout: estadiaObj.Checkout,
-                quarto: this.ap
+                quarto: this.ap,
+                actions: " "
               });
               console.log(this.items);
             });
