@@ -83,8 +83,7 @@
                   <v-layout class="text-xs-center pa-3">
                     <v-flex xs12>
                       <p>
-                        <b>Não há fazendas cadastradas ainda!</b><br />
-                        Clique no botão <i>Cadastro de Fazendas</i> no menu lateral à esquerda para adicionar a primeira fazenda!
+                        <b>Não há tipos cadastrados!</b><br />
                       </p>
                     </v-flex>
                   </v-layout>
@@ -158,7 +157,8 @@ export default {
         CamasCasal: this.cadastro_casal,
         CamasSolteiro: this.cadastro_solteiro,
         Televisao: this.cadastro_televisao,
-        Frigobar: this.cadastro_frigobar
+        Frigobar: this.cadastro_frigobar,
+        QntAp: 0
       }, (created) => {
         if(created == null){remote.dialog.showMessageBox({type: 'warning', title: 'Falha ao criar tipo!', message: 'Verifique as informações e tente novamente'}); return;}
         remote.dialog.showMessageBox({type: 'info', title: 'Tipo criado com sucesso!', message: 'O tipo: id: ' + created.id + ', com ' + created.CamasCasal + ' camas de casal e ' + created.CamasSolteiro + ' camas de solteiro foi criado com sucesso!'});

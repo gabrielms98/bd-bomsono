@@ -204,6 +204,7 @@ export default {
     itemsCLIENTE: [
       { icon: 'domain', text: 'Hotéis', to: '/HoteisCliente' },
       { divider: true },
+      { icon: 'date_range', text: 'Reserva', to: ''},
       { icon: 'attach_money', text: 'Conta', to: '' },
       { divider: true },
       { icon: 'local_laundry_service', text: 'Lavanderia', to: '' },

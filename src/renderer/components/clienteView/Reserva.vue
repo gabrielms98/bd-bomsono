@@ -62,19 +62,23 @@
                         <v-date-picker v-model="date2" no-title @input="menu2 = false"></v-date-picker>
                       </v-menu>
                     </v-flex>
-                    <v-flex xs12 sm5>
-                      <v-select
-                        :items="states"
-                        v-model="e7"
-                        label="Extras"
-                        multiple
-                        chips
-                        hint="What are the target regions"
-                        persistent-hint
-                      ></v-select>
+                    <v-flex xs12 sm4>
+                      <v-checkbox label="Frigobar" v-model="frigobar"></v-checkbox>
                     </v-flex>
-                    <v-flex xs12 sm5>
-                      <v-text-field label="Número de hospedes" v-model="numero_hospede" type="number" required></v-text-field>
+                    <v-flex xs12 sm4>
+                      <v-checkbox label="Televisão" v-model="tv"></v-checkbox>
+                    </v-flex>
+                    <v-flex xs12 sm4>
+                      <v-checkbox label="Acessibilidade" v-model="access"></v-checkbox>
+                    </v-flex>
+                    <v-flex xs12 sm4>
+                      <v-text-field label="Número camas de casal" v-model="casal" type="number" required></v-text-field>
+                    </v-flex>
+                    <v-flex xs12 sm4>
+                      <v-text-field label="Número camas de solteiro" v-model="solteiro" type="number" required></v-text-field>
+                    </v-flex>
+                    <v-flex xs12 sm4>
+                      <v-text-field label="Número de pessoas" v-model="num_pessoas" type="number" required></v-text-field>
                     </v-flex>
                   </v-layout>
                 </v-form>
@@ -92,6 +96,7 @@
 </template>
 
 <script>
+import { remote } from 'electron'
 export default {
   data: vm => ({
     date: new Date().toISOString().substr(0, 10),
@@ -100,13 +105,13 @@ export default {
     dateFormatted2: vm.formatDate(new Date().toISOString().substr(0, 10)),
     menu1: false,
     menu2: false,
-    states: [
-     'Frigobar', 'Televisão', 'Acessibilidade'
-   ],
-   frigobar: false,
-   tv: false,
-   access: false,
-   busca: false
+    frigobar: false,
+    tv: false,
+    access: false,
+    busca: false,
+    casal: '',
+    solteiro: '',
+    num_pessoas: ''
   }),
   computed: {
     computedDateFormatted () {
@@ -141,6 +146,31 @@ export default {
 
       const [month, day, year] = date.split('/')
       return `${year}-${month.padStart(2, '0')}-${day.padStart(2, '0')}`
+    },
+    buscar(){
+      this.$backend.getTipo(this.casal, this.solteiro, this.tv, this.access, this.frigobar, tipo => {
+        if(tipo==null){remote.dialog.showMessageBox({type: 'warning', title: 'Erro ao fazer a reserva', message: 'Não existe quarto que atenda a suas especificações!'});return;}
+        else if(tipo.QntAp > 0){
+          this.$backend.checkReservaData(this.date, this.date2, data => {
+            if(data==null){
+              this.$backend.addReserva({
+                NumPessoas: this.num_pessoas,
+                TiposID: tipo.id,
+                HoteisID: this.id,
+                UsuarioID: this.$cookie.get('cookie_user_session'),
+                Entrada: this.date,
+                Saida: this.date2
+              }, reserva => {
+                if(reserva==null){}
+                this.$backend.reduceApOnTipo(tipo.id, tipo.QntAp-1);
+                remote.dialog.showMessageBox({type: 'warning', title: 'Sucesso', message: 'Reserva realiza com sucesso!'});
+                return;
+              });
+            };
+          });
+        }
+        else {remote.dialog.showMessageBox({type: 'warning', title: 'Não foi possivel fazer a reserva', message: 'Não ha quartos disponiveis que atendam a sua solicitação!'}); return;}
+      });
     }
   }
 }

@@ -1,5 +1,6 @@
 const Sequelize = require('sequelize');
 const remote = require('electron').remote;
+const Op = Sequelize.Op;
 
 //helper functions
 
@@ -73,7 +74,8 @@ const backend = {
           CamasCasal: tipoObj.CamasCasal,
           CamasSolteiro: tipoObj.CamasSolteiro,
           Televisao: tipoObj.Televisao,
-          Frigobar: tipoObj.Frigobar
+          Frigobar: tipoObj.Frigobar,
+          QntAp: tipoObj.QntAp
         }).then(tipo => callback(tipo));
       },
 
@@ -130,6 +132,36 @@ const backend = {
           EstadiaID: apObj.EstadiaID,
           HotelID: apObj.HotelID
         }).then(ap => callback(ap));
+      },
+
+      addApOnTipo(tid, qnt, callback=null){
+        models.Tipos.update(
+          {QntAp: qnt},
+          {where: {id: tid}}
+        ).then(() => callback())
+      },
+
+      reduceApOnTipo(tid, qnt, callback=null){
+        models.Tipos.update(
+          {QntAp: qnt},
+          {where: {id: tid}}
+        ).then(() => callback())
+      },
+
+      checkReservaData(entrada, saida, callback=null){
+        models.Reserva.findOne({where: {[Op.or]: [{Saida: {[Op.gt]: entrada}}, {Entrada: {[Op.lt]: saida}}]}})
+        .then(reservado => callback(reservado))
+      },
+
+      addReserva(reservaObj, callback=null){
+        models.Reserva.create({
+          NumPessoas: reservaObj.NumPessoas,
+          TiposID: reservaObj.TiposID,
+          HoteisID: reservaObj.HoteisID,
+          UsuarioID: reservaObj.UsuarioID,
+          Entrada: reservaObj.Entrada,
+          Saida: reservaObj.Saida
+        }).then(reserva => callback(reserva))
       }
     }
   }

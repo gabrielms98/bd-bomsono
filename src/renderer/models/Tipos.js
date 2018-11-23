@@ -6,7 +6,8 @@ module.exports = function(sequelize, Sequelize){
     CamasCasal: Sequelize.INTEGER,
     CamasSolteiro: Sequelize.INTEGER,
     Televisao: Sequelize.BOOLEAN,
-    Frigobar: Sequelize.BOOLEAN
+    Frigobar: Sequelize.BOOLEAN,
+    QntAp: Sequelize.INTEGER
   },
   {
     indexes: [{fields: ['id']}]
