@@ -131,9 +131,6 @@ export default {
   methods: {
     buscar(){
       this.busca = !this.busca;
-      for(let i=0; i<states.length; i++){
-
-      }
     },
     formatDate (date) {
       if (!date) return null
@@ -149,27 +146,54 @@ export default {
     },
     buscar(){
       this.$backend.getTipo(this.casal, this.solteiro, this.tv, this.access, this.frigobar, tipo => {
-        if(tipo==null){remote.dialog.showMessageBox({type: 'warning', title: 'Erro ao fazer a reserva', message: 'Não existe quarto que atenda a suas especificações!'});return;}
+        if(tipo==null){remote.dialog.showMessageBox({type: 'warning', title: 'Erro ao fazer a reserva', message: 'Não existe quarto que atenda a suas especificações!1'});return;}
         else if(tipo.QntAp > 0){
-          this.$backend.checkReservaData(this.date, this.date2, data => {
-            if(data==null){
-              this.$backend.addReserva({
-                NumPessoas: this.num_pessoas,
-                TiposID: tipo.id,
-                HoteisID: this.id,
-                UsuarioID: this.$cookie.get('cookie_user_session'),
-                Entrada: this.date,
-                Saida: this.date2
-              }, reserva => {
-                if(reserva==null){}
-                this.$backend.reduceApOnTipo(tipo.id, tipo.QntAp-1);
-                remote.dialog.showMessageBox({type: 'warning', title: 'Sucesso', message: 'Reserva realiza com sucesso!'});
-                return;
-              });
-            };
+          this.$backend.addReserva({
+            NumPessoas: this.num_pessoas,
+            TiposID: tipo.id,
+            HoteisID: this.id,
+            UsuarioID: this.$cookie.get('cookie_user_session'),
+            Entrada: this.date,
+            Saida: this.date2
+          }, reserva => {
+            // if(reserva==null){}
+            this.$backend.reduceApOnTipo(tipo.id, tipo.QntAp-1);
+            remote.dialog.showMessageBox({type: 'warning', title: 'Sucesso', message: 'Reserva realiza com sucesso!1'});
+            return;
           });
         }
-        else {remote.dialog.showMessageBox({type: 'warning', title: 'Não foi possivel fazer a reserva', message: 'Não ha quartos disponiveis que atendam a sua solicitação!'}); return;}
+        else{
+          let data = 0;
+          let count=0;
+          let maior_data= new Date();
+          this.$backend.getReservaTipo(tipo.id, all_reservas => {
+            all_reservas.forEach(reserva => {
+              count++;
+              console.log(reserva.Saida);
+              if(maior_data < reserva.Saida) {maior_data = reserva.Saida}
+              if(count == all_reservas.length){
+                if(maior_data < this.date){
+                  this.$backend.addReserva({
+                    NumPessoas: this.num_pessoas,
+                    TiposID: tipo.id,
+                    HoteisID: this.id,
+                    UsuarioID: this.$cookie.get('cookie_user_session'),
+                    Entrada: this.date,
+                    Saida: this.date2
+                  }, reserva => {
+                    if(reserva==null){return;}
+                    remote.dialog.showMessageBox({type: 'warning', title: 'Sucesso', message: 'Reserva realiza com sucesso!2'});
+                    return;
+                  });
+                }
+                else {
+                  remote.dialog.showMessageBox({type: 'warning', title: 'Erro ao fazer a reserva', message: 'Não ha quarto disponivel que atenda a suas especificações!1'});
+                  return;
+                }
+              }
+            });
+          });
+        }
       });
     }
   }

@@ -138,7 +138,7 @@ const backend = {
         models.Tipos.update(
           {QntAp: qnt},
           {where: {id: tid}}
-        ).then(() => callback())
+        ).then((tipo) => callback(tipo))
       },
 
       reduceApOnTipo(tid, qnt, callback=null){
@@ -162,6 +162,11 @@ const backend = {
           Entrada: reservaObj.Entrada,
           Saida: reservaObj.Saida
         }).then(reserva => callback(reserva))
+      },
+
+      getReservaTipo(tid, callback=null){
+        models.Reserva.findAll({where: {TiposID: tid}})
+        .then(reservas => callback(reservas))
       }
     }
   }

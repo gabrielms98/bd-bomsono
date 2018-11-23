@@ -129,7 +129,6 @@ export default {
 
         this.$backend.getTipo(this.cadastro_casal, this.cadastro_solteiro, this.cadastro_tv, this.cadastro_access, this.cadastro_frigobar, tipo => {
           if(tipo == null){remote.dialog.showMessageBox({type: 'warning', title: 'tipo', message: ''}); this.clear(); return;}
-          this.$backend.addApOnTipo(tipo.id, tipo.QntAp+1);
           this.$backend.addAp({
             NumeroAp: this.cadastro_numap,
             idTipos: tipo.id,
@@ -137,7 +136,7 @@ export default {
             Ocupado: false,
             HotelID: hotel.id
           }, add => {
-            if(add != null) {this.clear(); this.getApt();}
+            if(add != null) {this.clear(); this.getApt(); this.$backend.addApOnTipo(tipo.id, tipo.QntAp+1);}
           });
         });
       });
