@@ -6,21 +6,15 @@ const remote = require('electron').remote;
 //global vars/objects
 var models;
 
-const sequelize = new Sequelize('bomsono', 'gabriel', 'bee3c4f5', {
-  host: 'localhost',
+const sequelize = new Sequelize('bomsono', 'gabriel', '12345', {
+  host: '127.0.0.1',
   dialect: 'mysql',
   operatorsAliases: false,
   port: 5432,
-  pool: {
-    max: 999,
-    min: 0,
-    acquire: 3000,
-    idle: 10000
-  },
   storage: 'bomsono.db'
 });
 
-const fatal_error = err => {remote.dialog.showMessageBox({type: 'warning', title: 'Falha ao conectar com o banco de dados!', message: 'Se voce é o dono do aplicativo, verifique se o banco de dados esta online ou se os parametros de conexão do sequelize estão corretos'}); remote.getCurrentWindow().close();}
+const fatal_error = err => {remote.dialog.showMessageBox({type: 'warning', title: 'Falha ao conectar com o banco de dados!', message: 'Se voce é o dono do aplicativo, verifique se o banco de dados esta online ou se os parametros de conexão do sequelize estão corretos'});}// remote.getCurrentWindow().close();}
 
 
 const sync = () => sequelize.sync();
