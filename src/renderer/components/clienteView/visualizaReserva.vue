@@ -11,7 +11,6 @@
             </v-toolbar>
             <v-card-text>
               <v-layout row wrap v-if="reserva">
-
                 <v-flex xs12 sm6>
                   <v-card color="amber" class="white--text back1 text-xs-center" small ><v-icon>date</v-icon><h3>Entrada: {{this.entrada}}</h3></v-card>
                 </v-flex>
@@ -30,8 +29,11 @@
                   </v-card>
                 </v-flex>
               </v-layout>
+              <v-layout v-else>
+                <h3>Você ainda não possui uma reserva! <br> Acesse a pagina de Hoteis para fazer a sua agora mesmo! </h3>
+              </v-layout>
             </v-card-text>
-            <v-card-actions>
+            <v-card-actions v-if="reserva">
               <v-btn class="white--text text-xs-center" color="amber" @click="cancelar">CANCELAR RESERVA</v-btn>
             </v-card-actions>
           </v-card>
@@ -60,7 +62,8 @@ export default {
     casal: '',
     solteiro: '',
     diaria: '',
-    qnt: ''
+    qnt: '',
+    tipo_id: ''
   }),
   methods: {
     getReserva(){
@@ -82,6 +85,7 @@ export default {
             this.diaria = tipo.PrecoDiaria;
             this.qnt = tipo.QntAp;
             this.reserva_id = reservaObj.id;
+            this.tipo_id = tipo.id;
           })
         })
       });
@@ -91,7 +95,8 @@ export default {
                                     buttons: ['Sim, eu tenho certeza.', 'Não! Eu não quero fazer isso!']}, (idx)=>{
                                       if(idx===0){
                                         this.$backend.deleteReserva(this.reserva_id, reserva => {
-                                          this.$backend.addApOnTipo(reserva.TiposID, this.qnt+1);
+                                          this.qnt = this.qnt+1;
+                                          this.$backend.addApOnTipo(this.tipo_id, this.qnt, tipo => {});
                                           remote.dialog.showMessageBox({type:'warning', title:'Reserva', message: 'Reserva cancelada com sucesso!'});
                                           this.$router.push('/');
                                         });

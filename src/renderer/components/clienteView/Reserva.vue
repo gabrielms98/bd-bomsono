@@ -195,6 +195,10 @@ export default {
           });
         }
       });
+      this.clear();
+    },
+    clear: function(){
+      this.$refs.form.reset();
     }
   }
 }
