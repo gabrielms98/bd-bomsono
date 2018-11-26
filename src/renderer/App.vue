@@ -204,7 +204,7 @@ export default {
     itemsCLIENTE: [
       { icon: 'domain', text: 'Hotéis', to: '/HoteisCliente' },
       { divider: true },
-      { icon: 'date_range', text: 'Reserva', to: ''},
+      { icon: 'date_range', text: 'Reserva', to: '/visualizaReserva'+this.user_session_id},
       { icon: 'attach_money', text: 'Conta', to: '' },
       { divider: true },
       { icon: 'local_laundry_service', text: 'Lavanderia', to: '' },
@@ -266,6 +266,7 @@ export default {
         this.cadastrar = false;
         this.$session.start();
         this.$session.set('user_session',usuario.adm);
+        console.log(this.$session.get('user_session'));
         this.$cookie.set('cookie_user_session', usuario.id, 1);
         this.session = this.$session.exists();
         this.admCheck(usuario.id);

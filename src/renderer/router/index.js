@@ -48,6 +48,12 @@ export default new Router({
       props: true
     },
     {
+      path: '/visualizaReserva:id',
+      name: 'visualizaReserva',
+      component: require('@/components/clienteView/visualizaReserva.vue').default,
+      props: true
+    },
+    {
       path: '*',
       redirect: '/'
     }

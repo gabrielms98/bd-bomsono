@@ -167,6 +167,26 @@ const backend = {
       getReservaTipo(tid, callback=null){
         models.Reserva.findAll({where: {TiposID: tid}})
         .then(reservas => callback(reservas))
+      },
+
+      getReserva(uid, callback=null){
+        models.Reserva.findOne({where: {UsuarioID: uid}})
+        .then(reserva => callback(reserva))
+      },
+
+      getHotelId(hid, callback=null){
+        models.Hotel.findOne({where: {id: hid}})
+        .then(hotel => callback(hotel))
+      },
+
+      getTipoid(tid, callback=null){
+        models.Tipos.findOne({where: {id: tid}})
+        .then(tipo => callback(tipo))
+      },
+
+      deleteReserva(rid, callback=null){
+        models.Reserva.destroy({where: {id: rid}})
+        .then(reserva => callback(reserva))
       }
     }
   }
