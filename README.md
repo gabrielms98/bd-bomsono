@@ -1,6 +1,6 @@
 # bd-bomsono
 
-> An electron-vue project
+> Projeto da rede de Hoteis Bom Sono
 
 #### Build Setup
 
@@ -38,7 +38,7 @@ Sequelize('nome-bd', 'usuario', 'senha', {
   host: 'endereco-servidor',
   dialect: 'tipo-sv',
   port: 'porta',
-  storage: 'path/to/database.db' 
+  storage: 'path/to/database.db'
 })
 
 ```

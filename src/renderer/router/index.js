@@ -54,6 +54,16 @@ export default new Router({
       props: true
     },
     {
+      path: '/Checkin',
+      name: 'Checkin',
+      component: require('@/components/admView/Checkin.vue').default
+    },
+    {
+      path: '/Checkout',
+      name: 'Checkout',
+      component: require('@/components/admView/Checkout.vue').default
+    },
+    {
       path: '*',
       redirect: '/'
     }

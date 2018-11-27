@@ -187,6 +187,34 @@ const backend = {
       deleteReserva(rid, callback=null){
         models.Reserva.destroy({where: {id: rid}})
         .then(reserva => callback(reserva))
+      },
+
+      getCliente(nome, callback=null){
+        models.Usuario.findOne({where: {Nome: nome}})
+        .then(cliente => callback(cliente))
+      },
+
+      reservaApt(aid, callback=null){
+        models.Apartamentos.update(
+          {Ocupado: 1},
+          {where: {id: aid}}
+        ).then(reservado => callback(reservado))
+      },
+
+      createEstadia(estadiaObj, callback=null){
+        models.Estadia.create({
+          Checkin: estadiaObj.Checkin,
+          Checkout: estadiaObj.Checkout,
+          ValorTotal: estadiaObj.ValorTotal,
+          ReservaID: estadiaObj.ReservaID,
+          ApartamentosID: estadiaObj.ApartamentosID,
+          ClienteID: estadiaObj.ClienteID
+        }).then(estadia => callback(estadia))
+      },
+
+      getAllAptTipo(tid, callback=null){
+        models.Apartamentos.findAll({where: {idTipos: tid}})
+        .then(all_apt => callback(all_apt))
       }
     }
   }
