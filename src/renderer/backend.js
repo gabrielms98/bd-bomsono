@@ -215,6 +215,36 @@ const backend = {
       getAllAptTipo(tid, callback=null){
         models.Apartamentos.findAll({where: {idTipos: tid}})
         .then(all_apt => callback(all_apt))
+      },
+
+      getEstadiaC(cid, callback=null){
+        models.Estadia.findOne({where: {ClienteID: cid}})
+        .then(estadia => callback(estadia))
+      },
+
+      getApt(aid, callback=null){
+        models.Apartamentos.findOne({where: {id: aid}})
+        .then(apt => callback(apt))
+      },
+
+      getReservaId(rid, callback=null){
+        models.Reserva.findOne({where: {id: rid}})
+        .then(reserva => callback(reserva))
+      },
+
+      getEstadiaR(rid, callback=null){
+        models.Estadia.findOne({where: {ReservaID: rid}})
+        .then(estadia => callback(estadia))
+      },
+
+      getAllConsumo(eid, callback=null){
+        models.Consumo.findAll({where: {EstadiaID: eid}})
+        .then(all_consumo => callback(all_consumo))
+      },
+
+      getTipoServico(tid, callback=null){
+        models.TipoServico.findOne({where: {id: tid}})
+        .then(tipo => callback(tipo))
       }
     }
   }
