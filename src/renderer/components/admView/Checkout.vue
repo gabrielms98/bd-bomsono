@@ -33,7 +33,7 @@
                   <v-btn color="amber" @click="pagamento">Gerar Nota Fiscal</v-btn>
                   <v-btn flat>Cancel</v-btn>
                   <v-dialog v-model="dialog">
-                    <invoice :rid="reserva_id" ></invoice>
+                    <invoice :rid="estadia_id" ></invoice>
                   </v-dialog>
                 </v-stepper-content>
 
@@ -65,7 +65,7 @@ export default {
     valor_total_diarias: '',
     nome_cliente: '',
     cliente_id: '',
-    reserva_id: '',
+    estadia_id: '',
     valor_total_conta: '',
     dialog: false
   }),
@@ -78,12 +78,14 @@ export default {
       return diffDays;
     },
     valorDiarias(){
-      this.$backend.getEstadia(this.cliente_id, estadia => {
-        if(estadia==null){remote.dialog.showMessageBox({type: '', title: '', message: ''}); return;}
+      console.log(this.cliente_id);
+      this.$backend.getEstadiaC(this.cliente_id, estadia => {
+        console.log(estadia);
+        if(estadia==null){remote.dialog.showMessageBox({type: 'warning', title: 'asda', message: 'asdadsad'}); return;}
         const [a1, m1, d1] = estadia.Checkin.split('-');
         const [a2, m2, d2] = estadia.Checkout.split('-');
         this.valor_total_conta = estadia.ValorTotal;
-        this.reserva_id = estadia.ReservaID;
+        this.estadia_id = estadia.id;
         let entrada = new Date(a1, m1, d1);
         let saida = new Date(a2, m2, d2);
         let dias = this.numeroDias(entrada, saida);

@@ -17,7 +17,8 @@
       </div>
     </header>
     <main>
-      <table>
+      <!--FAZER COM V-DATA-TABLE -->
+      <table id="invoice">
         <thead>
           <tr>
             <th class="service">SERVICE</th>
@@ -28,13 +29,13 @@
           </tr>
         </thead>
         <tbody>
-          <tr v-for="i in all_consumo">
+          <!-- <tr v-for="i in all_consumo">
             <td class="service">{{i.servico}}</td>
             <td class="desc"></td>
             <td class="unit">{{i.preco}}</td>
             <td class="qty">1</td>
             <td class="total">{{i.preco}}</td>
-          </tr>
+          </tr> -->
           <tr>
             <td colspan="4" class="grand total">GRAND TOTAL</td>
             <td class="grand total">{{this.preco_total}}</td>
@@ -42,6 +43,7 @@
         </tbody>
       </table>
       <br>
+      <v-flex v-for="i in all_consumo">{{i.preco}}</v-flex>
       <div id="notices">
         <div>NOTICE:</div>
         <div class="notice">A finance charge of 1.5% will be made on unpaid balances after 30 days.</div>
@@ -75,34 +77,12 @@ export default {
     }
   },
   mounted: function(){
-    this.$backend.getReservaId(this.rid, reserva => {
-      this.cliente_id = reserva.UsuarioID;
-      this.hotel_id = reserva.HotelID;
-      this.$backend.getEstadiaR(this.rid, estadia => {
-        this.ap_id = estadia.ApartamentosID;
-        this.entrada = estadia.Checkin;
-        this.saida = estadia.Checkout;
-        this.estadia_id = estadia.id;
-        this.$backend.getHotelId(this.hotel_id, hotel => {
-          this.nome_hotel = hotel.Nome;
-          this.end_hotel = hotel.Endereco;
-          this.$backend.getUsuario(this.cliente_id, cliente => {
-            this.nome_cliente = cliente.Nome;
-            this.email_cliente = cliente.Email;
-            this.$backend.getAllConsumo(estadia.id, allconsumo => {
-              allconsumo.forEach(consumo => {
-                this.$backend.getTipoServico(consumo.TipoServicoID, tipo => {
-                  if(consumo.EstadiaID===this.estadia_id){
-                    this.preco_total+=conumo.Preco;
-                    this.all_consumo.push({
-                      preco: consumo.Preco,
-                      servico: tipo.Nome
-                    })
-                  }
-                })
-              })
-            })
-          })
+    var table = document.getElementById("invoice");
+    var index = 1;
+    this.$backend.getAllConsumo(this.rid, all_consumo => {
+      all_consumo.forEach(consumoObj => {
+        this.all_consumo.push({
+          preco: consumoObj.Preco
         })
       })
     })

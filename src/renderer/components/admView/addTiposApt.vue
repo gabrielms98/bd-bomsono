@@ -173,7 +173,6 @@ export default {
       this.items = [];
       this.$backend.getAllTipos(all_tipos => {
         all_tipos.forEach(tipoObj => {
-          console.log(tipoObj.id);
           this.items.push({
             value: false,
             tid: tipoObj.id,

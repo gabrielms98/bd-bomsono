@@ -7,7 +7,7 @@ module.exports = function(sequelize, Sequelize){
   models.Reserva = require('./Reserva')(sequelize, Sequelize);
   models.Estadia = require('./Estadia')(sequelize, Sequelize);
   models.Hotel = require('./Hotel')(sequelize, Sequelize);
-  models.Consummo = require('./Consumo')(sequelize, Sequelize);
+  models.Consumo = require('./Consumo')(sequelize, Sequelize);
   models.TipoServico = require('./TiposServico')(sequelize, Sequelize);
 
   return models;

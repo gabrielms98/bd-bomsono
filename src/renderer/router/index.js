@@ -64,6 +64,21 @@ export default new Router({
       component: require('@/components/admView/Checkout.vue').default
     },
     {
+      path: '/ServicoQuarto',
+      name: 'ServicoQuarto',
+      component: require('@/components/admView/servicoQuarto.vue').default
+    },
+    {
+      path: '/Restaurante',
+      name: 'Restaurante',
+      component: require('@/components/admView/restaurante.vue').default
+    },
+    {
+      path: '/Lavanderia',
+      name: 'Lavanderia',
+      component: require('@/components/admView/lavanderia.vue').default
+    },
+    {
       path: '*',
       redirect: '/'
     }

@@ -149,6 +149,7 @@ export default {
             ClienteID: this.cliente_id
           }, estadia => {
             if(estadia==null){console.log("deu coco");remote.dialog.showMessageBox({type: '', title: '', message: ''});return;}
+            this.$backend.setAptEstadia(aid, estadia.id, apt => { });
             remote.dialog.showMessageBox({type: 'warning', title: 'Check-in', message: 'Check-in realizado com sucesso!'});
             this.e6 = 1;
           })

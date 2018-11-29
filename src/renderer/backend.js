@@ -245,6 +245,51 @@ const backend = {
       getTipoServico(tid, callback=null){
         models.TipoServico.findOne({where: {id: tid}})
         .then(tipo => callback(tipo))
+      },
+
+      addConsumo(consumo, callback=null){
+        models.Consumo.create({
+          Preco: consumo.Preco,
+          EstadiaID: consumo.EstadiaID,
+          TipoServicoID: consumo.TipoServicoID,
+          FuncionarioID: consumo.FuncionarioID
+        }).then(consumo => callback(consumo))
+      },
+
+      getProduto(nome, tipo, callback=null){
+        models.TipoServico.findOne({where: {Nome: nome, Tipo: tipo}})
+        .then(produto => callback(produto))
+      },
+
+      getAptNum(num, callback=null){
+        models.Apartamentos.findOne({where: {NumeroAp: num}})
+        .then(apt => callback(apt))
+      },
+
+      setAptEstadia(aid, eid, callback=null){
+        models.Apartamentos.update(
+          {EstadiaID: eid},
+          {where: {id: aid}}
+        ).then(apt => callback(apt))
+      },
+
+      addProduto(prod, callback=null){
+        models.TipoServico.create({
+          Tipo: prod.Tipo,
+          Nome: prod.Nome,
+          Preco: prod.Preco
+        }).then(produto => callback(produto))
+      },
+
+      setValorTotal(eid, val, callback=null){
+        models.Estadia.findOne({where: {id: eid}})
+        .then(estadia => {
+          console.log(estadia);
+          models.Estadia.update(
+            {ValorTotal: estadia.ValorTotal + val},
+            {where: {id: eid}}
+          ).then(val => callback(val))
+        })
       }
     }
   }
