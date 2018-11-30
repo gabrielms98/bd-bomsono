@@ -25,12 +25,12 @@
                 </v-flex>
                 <v-flex xs12 sm12>
                   <v-card color="amber" class="white--text back1 text-xs-center" small>
-                    <h3>Diaria: {{this.diaria}}, Camas solteiro: {{this.solteiro}}, Camas Casal: {{this.casal}}, TV: {{this.tv}}, Frigobar: {{this.frig}}, Acessibilidade: {{this.access}} </h3>
+                    <h3>Diaria: {{this.diaria}}, Camas de solteiro: {{this.solteiro}}, Camas de casal: {{this.casal}}, TV: {{this.tv}}, Frigobar: {{this.frig}}, Acessibilidade: {{this.access}} </h3>
                   </v-card>
                 </v-flex>
               </v-layout>
               <v-layout v-else>
-                <h3>Você ainda não possui uma reserva! <br> Acesse a pagina de Hoteis para fazer a sua agora mesmo! </h3>
+                <h3>Você ainda não possui uma reserva! <br> Acesse a página de hoteis para fazer a sua agora mesmo! </h3>
               </v-layout>
             </v-card-text>
             <v-card-actions v-if="reserva">
@@ -91,7 +91,7 @@ export default {
       });
     },
     cancelar(){
-      remote.dialog.showMessageBox({type:'warning', title:'Você tem certeza?', message: 'Reservas canceladas fora do prazo de 2 dias de antecedencia podem ser cobradas!',
+      remote.dialog.showMessageBox({type:'warning', title:'Você tem certeza?', message: 'Reservas canceladas fora do prazo de 2 dias de antecedência podem ser cobradas!',
                                     buttons: ['Sim, eu tenho certeza.', 'Não! Eu não quero fazer isso!']}, (idx)=>{
                                       if(idx===0){
                                         this.$backend.deleteReserva(this.reserva_id, reserva => {

@@ -30,7 +30,7 @@
                         <v-text-field
                           slot="activator"
                           v-model="dateFormatted"
-                          label="dd/mm/aaaa"
+                          label="Início da reserva (dd/mm/aaaa)"
                           persistent-hint
                           prepend-icon="event"
                           @blur="date = parseDate(dateFormatted)"
@@ -51,15 +51,24 @@
                         max-width="290px"
                         min-width="290px"
                       >
-                        <v-text-field
+                        <!-- <v-text-field
                           slot="activator"
                           v-model="dateFormatted2"
-                          label="dd/mm/aaaa"
+                          label="Fim da reserva (dd/mm/aaaa)"
                           persistent-hint
                           prepend-icon="event"
                           @blur="date2 = parseDate(dateFormatted2)"
                         ></v-text-field>
-                        <v-date-picker v-model="date2" no-title @input="menu2 = false"></v-date-picker>
+                        <v-date-picker v-model="date2" no-title @input="menu2 = false"></v-date-picker> -->
+                        <v-text-field
+                          slot="activator"
+                          v-model="dateFormatted"
+                          label="Fim da reserva (dd/mm/aaaa)"
+                          persistent-hint
+                          prepend-icon="event"
+                          @blur="date = parseDate(dateFormatted2)"
+                        ></v-text-field>
+                        <v-date-picker v-model="date" no-title @input="menu2 = false"></v-date-picker>
                       </v-menu>
                     </v-flex>
                     <v-flex xs12 sm4>
@@ -72,10 +81,10 @@
                       <v-checkbox label="Acessibilidade" v-model="access"></v-checkbox>
                     </v-flex>
                     <v-flex xs12 sm4>
-                      <v-text-field label="Número camas de casal" v-model="casal" type="number" required></v-text-field>
+                      <v-text-field label="Número de camas de casal" v-model="casal" type="number" required></v-text-field>
                     </v-flex>
                     <v-flex xs12 sm4>
-                      <v-text-field label="Número camas de solteiro" v-model="solteiro" type="number" required></v-text-field>
+                      <v-text-field label="Número de camas de solteiro" v-model="solteiro" type="number" required></v-text-field>
                     </v-flex>
                     <v-flex xs12 sm4>
                       <v-text-field label="Número de pessoas" v-model="num_pessoas" type="number" required></v-text-field>
@@ -121,6 +130,7 @@ export default {
   watch: {
     date (val) {
       this.dateFormatted = this.formatDate(this.date)
+      this.dateFormatted2 = this.formatDate(this.date2)
     }
   },
   props: {
@@ -146,7 +156,7 @@ export default {
     },
     buscar(){
       this.$backend.getTipo(this.casal, this.solteiro, this.tv, this.access, this.frigobar, tipo => {
-        if(tipo==null){remote.dialog.showMessageBox({type: 'warning', title: 'Erro ao fazer a reserva', message: 'Não existe quarto que atenda a suas especificações!1'});return;}
+        if(tipo==null){remote.dialog.showMessageBox({type: 'warning', title: 'Erro ao fazer a reserva', message: 'Não há quarto disponível que atenda às especificaçõess!'});return;}
         else if(tipo.QntAp > 0){
           this.$backend.addReserva({
             NumPessoas: this.num_pessoas,
@@ -158,7 +168,7 @@ export default {
           }, reserva => {
             // if(reserva==null){}
             this.$backend.reduceApOnTipo(tipo.id, tipo.QntAp-1);
-            remote.dialog.showMessageBox({type: 'warning', title: 'Sucesso', message: 'Reserva realiza com sucesso!1'});
+            remote.dialog.showMessageBox({type: 'warning', title: 'Sucesso', message: 'Sua reserva foi efetuada com sucesso em um dos apartamentos!'});
             return;
           });
         }
@@ -182,12 +192,12 @@ export default {
                     Saida: this.date2
                   }, reserva => {
                     if(reserva==null){return;}
-                    remote.dialog.showMessageBox({type: 'warning', title: 'Sucesso', message: 'Reserva realiza com sucesso!2'});
+                    remote.dialog.showMessageBox({type: 'warning', title: 'Sucesso', message: 'Reserva realizada com sucesso!'});
                     return;
                   });
                 }
                 else {
-                  remote.dialog.showMessageBox({type: 'warning', title: 'Erro ao fazer a reserva', message: 'Não ha quarto disponivel que atenda a suas especificações!1'});
+                  remote.dialog.showMessageBox({type: 'warning', title: 'Erro ao fazer a reserva', message: 'Não há quarto disponível que atenda às especificações!'});
                   return;
                 }
               }

@@ -164,6 +164,14 @@ const backend = {
         }).then(reserva => callback(reserva))
       },
 
+      addHotel(hotelObj, callback=null){
+        models.Hotel.create({
+          Nome: hotelObj.Nome,
+          Endereco: hotelObj.Endereco,
+          Estrelas: hotelObj.Estrelas
+        }).then(hotel => callback(hotel))
+      },
+
       getReservaTipo(tid, callback=null){
         models.Reserva.findAll({where: {TiposID: tid}})
         .then(reservas => callback(reservas))

@@ -32,13 +32,52 @@
         </v-flex>
       </v-layout>
     </v-container>
+
+    <v-container>
+      <v-layout row wrap justify-center id="wrapper">
+        <v-flex xs30 justify-center>
+          <v-card>
+            <v-toolbar dark color="amber">
+              <v-toolbar-title> <h3>Adicionar Hotel</h3></v-toolbar-title>
+              <v-btn icon @click="abreAdd" flat><v-icon >add</v-icon></v-btn>
+              <v-spacer></v-spacer>
+            </v-toolbar>
+            <v-spacer></v-spacer>
+            <v-card-text v-if="abre">
+              <v-form ref="form">
+                <v-layout row wrap>
+                  <v-flex xs12 sm5>
+                    <v-text-field v-model="nome_hotel"   label="Nome do hotel"  type="text"  required  ></v-text-field>
+                  </v-flex>
+                  <v-flex xs12 sm5>
+                    <v-text-field v-model="endereco_hotel"   label="Endereço do hotel"  type="text"  required  ></v-text-field>
+                  </v-flex>
+                  <v-flex xs12 sm5>
+                    <v-text-field v-model="estrelas_hotel"   label="Número de estrelas do hotel"  type="number"  required  ></v-text-field>
+                  </v-flex>
+                </v-layout>
+              </v-form>
+            </v-card-text>
+            
+            <v-card-actions v-if="abre">
+              <v-spacer></v-spacer><v-spacer></v-spacer>
+              <v-btn @click="submit" color="amber">Cadastrar</v-btn>
+            </v-card-actions>
+          </v-card>
+        </v-flex>
+      </v-layout>
+    </v-container>
   </div>
 </template>
 
 <script>
 export default {
   data: () => ({
-    items: []
+    items: [],
+    abre: false,
+    nome_hotel: '',
+    endereco_hotel: '',
+    estrelas_hotel: 0
   }),
   methods: {
     getHoteis(){
@@ -52,8 +91,19 @@ export default {
           });
         });
       });
-    }
+    },
+    abreAdd(){
+      this.abre = !this.abre;
+    },
+    submit(){
+      this.$backend.addHotel({
+        Nome: this.nome_hotel,
+        Endereco: this.endereco_hotel,
+        Estrelas: this.estrelas_hotel
+      })
+    },
   },
+  
   mounted: function(){
     this.getHoteis();
   }

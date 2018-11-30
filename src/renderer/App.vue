@@ -138,7 +138,7 @@
           </v-flex>
         </v-list>
       </v-navigation-drawer>
-      <v-toolbar color="amber" app absolute clipped-left>
+      <v-toolbar color="amber" app clipped-left>
         <v-toolbar-side-icon @click.native="drawer = !drawer"flat icon><v-icon>menu</v-icon></v-toolbar-side-icon>
         <h3><span class="title ml-3 mr-5">Hotel Bom&nbsp;<span class="font-weight-light">Sono</span></span></h3>
         <v-spacer></v-spacer>

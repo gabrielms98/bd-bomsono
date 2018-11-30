@@ -21,7 +21,7 @@
                   <v-btn flat>Cancel</v-btn>
                 </v-stepper-content>
 
-                <v-stepper-step :complete="e6 > 2" step="2">Selecione uma apartamento</v-stepper-step>
+                <v-stepper-step :complete="e6 > 2" step="2">Selecione um apartamento</v-stepper-step>
 
                 <v-stepper-content step="2">
                   <v-data-table

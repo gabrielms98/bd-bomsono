@@ -14,13 +14,13 @@
                 <v-form ref="form">
                   <v-layout row wrap>
                     <v-flex xs12 sm4>
-                      <v-text-field v-model="cadastro_diaria" prefix="R$" type="number" label="Preço Diária" required></v-text-field>
+                      <v-text-field v-model="cadastro_diaria" type="number" label="Preço Diária (R$)" required></v-text-field>
                     </v-flex>
                     <v-flex xs12 sm4>
-                      <v-text-field v-model="cadastro_casal" type="number" label="Quantidade camas de casal" required></v-text-field>
+                      <v-text-field v-model="cadastro_casal" type="number" label="Quantidade de camas de casal" required></v-text-field>
                     </v-flex>
                     <v-flex xs12 sm4>
-                      <v-text-field v-model="cadastro_solteiro" type="number" label="Quantidade camas de solteiro" required></v-text-field>
+                      <v-text-field v-model="cadastro_solteiro" type="number" label="Quantidade de camas de solteiro" required></v-text-field>
                     </v-flex>
                     <v-flex xs12 sm4>
                       <v-checkbox label="Acessibilidade" v-model="cadastro_access"></v-checkbox>
