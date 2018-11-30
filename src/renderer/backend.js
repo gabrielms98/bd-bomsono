@@ -292,9 +292,11 @@ const backend = {
       setValorTotal(eid, val, callback=null){
         models.Estadia.findOne({where: {id: eid}})
         .then(estadia => {
-          console.log(estadia);
+          let total=0;
+          total += parseInt(val) + parseInt(estadia.ValorTotal);
+          console.log(total);
           models.Estadia.update(
-            {ValorTotal: estadia.ValorTotal + val},
+            {ValorTotal: total},
             {where: {id: eid}}
           ).then(val => callback(val))
         })

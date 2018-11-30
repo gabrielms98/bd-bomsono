@@ -43,7 +43,7 @@ export default {
     addConsumo(){
       this.$backend.getAptNum(this.num_ap, apt => {
         if(apt==null){return;}
-        this.estadia_id = apt.NumeroAp;
+        this.estadia_id = apt.EstadiaID;
         this.$backend.addConsumo({
           Preco: this.preco,
           EstadiaID: this.estadia_id,
@@ -51,11 +51,16 @@ export default {
           FuncionarioID: this.$cookie.get('cookie_user_session')
         }, consumo => {
           if(consumo==null){return;}
+          console.log(this.preco)
           this.$backend.setValorTotal(this.estadia_id, this.preco, setval => { });
           remote.dialog.showMessageBox({type: 'warning', title: 'Consumo lançado!', message: 'O consumo do restaurante foi lançado com sucesso!'});
+          this.clear();
           return;
         })
       })
+    },
+    clear(){
+      this.$refs.form.reset();
     }
   }
 }

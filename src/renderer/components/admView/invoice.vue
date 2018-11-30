@@ -17,33 +17,10 @@
       </div>
     </header>
     <main>
-      <!--FAZER COM V-DATA-TABLE -->
-      <table id="invoice">
-        <thead>
-          <tr>
-            <th class="service">SERVICE</th>
-            <th class="desc">DESCRIPTION</th>
-            <th>PRICE</th>
-            <th>QTY</th>
-            <th>TOTAL</th>
-          </tr>
-        </thead>
-        <tbody>
-          <!-- <tr v-for="i in all_consumo">
-            <td class="service">{{i.servico}}</td>
-            <td class="desc"></td>
-            <td class="unit">{{i.preco}}</td>
-            <td class="qty">1</td>
-            <td class="total">{{i.preco}}</td>
-          </tr> -->
-          <tr>
-            <td colspan="4" class="grand total">GRAND TOTAL</td>
-            <td class="grand total">{{this.preco_total}}</td>
-          </tr>
-        </tbody>
+      <table id="BATATA">
       </table>
       <br>
-      <v-flex v-for="i in all_consumo">{{i.preco}}</v-flex>
+      <h1>{{this.rid}}</h1>
       <div id="notices">
         <div>NOTICE:</div>
         <div class="notice">A finance charge of 1.5% will be made on unpaid balances after 30 days.</div>
@@ -65,7 +42,7 @@ export default {
     hotel_id: '',
     email_cliente: '',
     ap_id: '',
-    all_consumo: [],
+    consumo: [],
     preco_total: 0,
     entrada: '',
     saida: '',
@@ -77,15 +54,11 @@ export default {
     }
   },
   mounted: function(){
-    var table = document.getElementById("invoice");
-    var index = 1;
-    this.$backend.getAllConsumo(this.rid, all_consumo => {
-      all_consumo.forEach(consumoObj => {
-        this.all_consumo.push({
-          preco: consumoObj.Preco
-        })
-      })
-    })
+    var table = document.getElementById("BATATA");
+    var row = table.insertRow(0);
+    var cell = row.insertCell(0);
+
+    cell.innerHTML = "PAÇOCA";
   }
 }
 </script>
