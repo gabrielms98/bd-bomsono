@@ -35,6 +35,15 @@
 
                 </v-stepper-content>
 
+                <v-stepper-step :complete="e6 > 3" step="3">Finalizar Checkout</v-stepper-step>
+
+                <v-stepper-content step="3">
+
+                  <v-btn color="amber" @click="finaliza">FINALIZAR</v-btn>
+                  <v-btn flat>Cancel</v-btn>
+
+                </v-stepper-content>
+
               </v-stepper>
             </v-card-text>
             <v-card-actions>
@@ -195,8 +204,21 @@ export default {
           }
         })
       })
-      this.e6 = 1;
+      this.e6 = 3;
       this.invoice = !this.invoice;
+    },
+    finaliza() {
+      this.$backend.desocupaApt(this.estadia_id, apt => {
+        this.$backend.desocupa2(this.estadia_id, ap => {
+          this.$backend.getTipoid(apt, tipo => {
+            var qnt = parseInt(tipo.QntAp) + parseInt(1);
+            this.$backend.addApOnTipo(apt, qnt, addtipo => {
+              remote.dialog.showMessageBox({type: 'warning', title: 'Check-out!', message: 'Check-out realizado com sucesso!'});
+              this.e6 =1;
+            })
+          })
+        })
+      })
     }
   }
 }
@@ -342,6 +364,6 @@ footer {
 
 .v-stepper__step__step .primary{
   background-color: #FFC200 !important;
-  border-color: #FFC200 !important; 
+  border-color: #FFC200 !important;
 }
 </style>
