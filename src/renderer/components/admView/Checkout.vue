@@ -362,7 +362,7 @@ footer {
   text-align: center;
 }
 
-.v-stepper__step__step .primary{
+.v-stepper__step__step .primary .steppers{
   background-color: #FFC200 !important;
   border-color: #FFC200 !important;
 }

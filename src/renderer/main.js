@@ -19,7 +19,11 @@ Vue.use(backend)
 Vue.use(VueSession, {
   persist: true
 })
-Vue.use(Vuetify)
+Vue.use(Vuetify, {
+  theme: {
+    primary: '#FFC200'
+  }
+})
 
 if (!process.env.IS_WEB) Vue.use(require('vue-electron'))
 Vue.http = Vue.prototype.$http = axios
