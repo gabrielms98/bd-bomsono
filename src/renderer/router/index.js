@@ -79,6 +79,11 @@ export default new Router({
       component: require('@/components/admView/lavanderia.vue').default
     },
     {
+      path: '/Relatorio',
+      name: 'Relatorio',
+      component: require('@/components/admView/Relatorio.vue').default
+    },
+    {
       path: '*',
       redirect: '/'
     }
