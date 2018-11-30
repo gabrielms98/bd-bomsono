@@ -108,7 +108,7 @@ export default {
     },
     pagamento(){
       this.dialog = !this.dialog;
-      this.e6 = 3;
+      // this.e6 = 3;
     },
 
     pago(){
