@@ -8,7 +8,7 @@ module.exports = function(sequelize, Sequelize){
     HotelID: Sequelize.INTEGER
   },
   {
-    indexes: [{fields: ['id', 'idTipos', 'EstadiaID']}]
+    indexes: [{fields: ['id']}]
   });
 
   return Apartamentos;

@@ -300,6 +300,20 @@ const backend = {
             {where: {id: eid}}
           ).then(val => callback(val))
         })
+      },
+
+      desocupaApt(eid, callback=null){
+        models.Apartamentos.update(
+          {Ocupado: 0},
+          {where: {EstadiaID: eid}}
+        ).then(apt => callback(apt))
+      },
+      
+      desocupa2(eid, callback=null){
+        models.Apartamentos.update(
+          {EstadiaID: null},
+          {where: {EstadiaID: eid}}
+        ).then(apt => callback(apt))
       }
     }
   }
