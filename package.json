@@ -1,7 +1,7 @@
 {
   "name": "bd-bomsono",
   "version": "0.0.0",
-  "author": "Gabriel M Silva <gabriel.silva@nobugs.com.br>",
+  "author": "Gabriel M Silva <gabriel.m.martins@ufv.br>",
   "description": "An electron-vue project",
   "license": null,
   "main": "./dist/electron/main.js",
@@ -54,7 +54,6 @@
   },
   "dependencies": {
     "axios": "^0.16.1",
-    "electron-rebuild": "^1.8.2",
     "js-cookie": "^2.2.0",
     "mysql2": "^1.6.4",
     "node-pre-gyp": "^0.11.0",
